@@ -1,0 +1,907 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://input-cn.vercel.app/schema/form.json",
+  "title": "inputcn form spec",
+  "description": "Describe a form; generate it with `npx inputcn generate`. Every prop is checked against the real component interfaces.",
+  "type": "object",
+  "required": [
+    "name",
+    "fields"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Za-z0-9]*$",
+      "description": "PascalCase. Becomes the generated component name."
+    },
+    "form": {
+      "enum": [
+        "react-hook-form",
+        "none"
+      ],
+      "default": "react-hook-form",
+      "description": "\"react-hook-form\" generates a Controller-based component with a Zod schema. \"none\" generates constraint props and a native form that works as a Server Action."
+    },
+    "submitLabel": {
+      "type": "string",
+      "default": "Submit"
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "title": "PhoneInput",
+            "description": "PhoneInput — @inputcn/phone",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "phone"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "countries": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Restrict the selector and reject numbers outside the list."
+              },
+              "mobileOnly": {
+                "type": "boolean",
+                "description": "Reject numbers that look like landlines."
+              },
+              "defaultCountry": {
+                "type": "string",
+                "description": "Country selected before the user picks one. Defaults to \"US\"."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "renderCountry": {
+                "description": "Override the country trigger and popover."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "CurrencyInput",
+            "description": "CurrencyInput — @inputcn/currency",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "currency"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "min": {
+                "type": "number",
+                "description": "Minor units."
+              },
+              "max": {
+                "type": "number",
+                "description": "Minor units."
+              },
+              "positive": {
+                "type": "boolean"
+              },
+              "negative": {
+                "type": "boolean"
+              },
+              "nonZero": {
+                "type": "boolean"
+              },
+              "wholeUnitsOnly": {
+                "type": "boolean",
+                "description": "Reject fractional currency units (e.g. whole dollars only)."
+              },
+              "multipleOf": {
+                "type": "number",
+                "description": "Minor units the value must be a multiple of."
+              },
+              "currency": {
+                "type": "string",
+                "description": "ISO 4217. Default \"USD\"."
+              },
+              "locale": {
+                "type": "string",
+                "description": "BCP 47. Default \"en-US\"."
+              },
+              "allowNegative": {
+                "type": "boolean",
+                "description": "Allow typing a negative value with \"-\". Default false."
+              },
+              "step": {
+                "type": "number",
+                "description": "Stepper increment in minor units. Default one whole unit."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "layout": {
+                "description": "PRD §6 layouts. `inline` is the default form-row shape."
+              },
+              "showCode": {
+                "type": "boolean",
+                "description": "Show the ISO code as a trailing affix. Default true."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "MaskedInput",
+            "description": "MaskedInput — @inputcn/masked",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "masked"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "complete": {
+                "type": "boolean",
+                "description": "Require every slot in the mask to be filled."
+              },
+              "minLength": {
+                "type": "number"
+              },
+              "maxLength": {
+                "type": "number"
+              },
+              "pattern": {
+                "description": "Tested against the RAW (unmasked) value."
+              },
+              "mask": {
+                "type": "string",
+                "description": "Template. `#` digit, `A` letter, `*` alphanumeric, `\\` escapes. e.g. `\"###.###.###-##\"`, `\"##/##/####\"`, `\"AA-####\"`."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "prefix": {
+                "description": "Rendered before the field, inside the border."
+              },
+              "suffix": {
+                "description": "Rendered after the field, inside the border."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "PercentInput",
+            "description": "PercentInput — @inputcn/percent",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "percent"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "min": {
+                "type": "number",
+                "description": "As a fraction: 0.05 means 5%."
+              },
+              "max": {
+                "type": "number",
+                "description": "As a fraction: 1 means 100%."
+              },
+              "positive": {
+                "type": "boolean"
+              },
+              "integer": {
+                "type": "boolean",
+                "description": "Reject fractional percentages — 12% yes, 12.5% no."
+              },
+              "precision": {
+                "type": "number",
+                "description": "Maximum decimal places in the displayed percentage. Default 2."
+              },
+              "locale": {
+                "type": "string"
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "CardInput",
+            "description": "CardInput — @inputcn/card",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "card"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "brands": {
+                "description": "Restrict to the brands your PSP actually accepts."
+              },
+              "notExpired": {
+                "type": "boolean",
+                "description": "Reject a card whose expiry has passed. Requires an expiry value."
+              },
+              "requireCvc": {
+                "type": "boolean",
+                "description": "Require the CVC to be filled to the brand's length."
+              },
+              "expiry": {
+                "type": "string",
+                "description": "Expiry as typed, e.g. \"04 / 28\". Controlled separately from the number."
+              },
+              "defaultExpiry": {
+                "type": "string"
+              },
+              "onExpiryChange": {},
+              "cvc": {
+                "type": "string"
+              },
+              "defaultCvc": {
+                "type": "string"
+              },
+              "onCvcChange": {},
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "layout": {
+                "description": "`stacked` is three fields; `single` is one row, Stripe-style."
+              },
+              "expiryName": {
+                "type": "string",
+                "description": "Field names for native submission."
+              },
+              "cvcName": {
+                "type": "string"
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "DurationInput",
+            "description": "DurationInput — @inputcn/duration",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "duration"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "min": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "max": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "multipleOf": {
+                "type": [
+                  "number",
+                  "string"
+                ],
+                "description": "Must be a whole multiple of this. Accepts \"15m\"."
+              },
+              "maxUnit": {
+                "description": "Largest unit shown when formatting. Default \"d\"."
+              },
+              "bareUnit": {
+                "description": "What a bare number means. Default \"m\"."
+              },
+              "presets": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Presets offered by the `presets` layout."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "layout": {
+                "description": "PRD §6. `text` is fastest for keyboard users; `segmented` is unambiguous."
+              },
+              "showNormalised": {
+                "type": "boolean",
+                "description": "Show the normalised value as a trailing affix. Default true."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "ColorInput",
+            "description": "ColorInput — @inputcn/color",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "color"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "contrastAgainst": {
+                "type": "string",
+                "description": "Check contrast against this colour. The differentiating constraint: it stops a customer picking a brand colour nobody can read."
+              },
+              "minContrast": {
+                "type": "number",
+                "description": "Minimum WCAG ratio. 4.5 is AA for body text, 3 is AA for large text."
+              },
+              "allowed": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Restrict to a palette."
+              },
+              "outputFormat": {
+                "description": "Output format for `onChange`. Default \"hex\" — the only lossless one."
+              },
+              "swatches": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Palette shown beneath the field."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "nativePicker": {
+                "type": "boolean",
+                "description": "Show the native OS picker alongside the text field. Default true."
+              },
+              "showSwatches": {
+                "type": "boolean",
+                "description": "Show the swatch palette. Default true."
+              },
+              "showContrast": {
+                "type": "boolean",
+                "description": "Show the live contrast reading when `contrastAgainst` is set. Default true."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "CronInput",
+            "description": "CronInput — @inputcn/cron",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "cron"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "minInterval": {
+                "type": [
+                  "number",
+                  "string"
+                ],
+                "description": "Reject schedules that fire more often than this. The constraint that earns its keep — it stops someone scheduling a job every second and taking down a worker queue."
+              },
+              "previewCount": {
+                "type": "number",
+                "description": "How many upcoming runs to compute for the preview. Default 3."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "layout": {
+                "description": "`expression` for engineers, `builder` for everyone else."
+              },
+              "showDescription": {
+                "type": "boolean",
+                "description": "Show the plain-English reading. Default true."
+              },
+              "showUpcoming": {
+                "type": "boolean",
+                "description": "Show upcoming run times. Default true."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "FileSizeInput",
+            "description": "FileSizeInput — @inputcn/filesize",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "filesize"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "min": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "max": {
+                "type": [
+                  "number",
+                  "string"
+                ]
+              },
+              "binary": {
+                "type": "boolean",
+                "description": "Use KiB/MiB/GiB and read ambiguous units as powers of 1024. Default false."
+              },
+              "bareUnit": {
+                "type": "string",
+                "description": "Unit assumed when the user types a bare number. Default \"MB\"."
+              },
+              "precision": {
+                "type": "number",
+                "description": "Decimals when formatting. Default 2."
+              },
+              "locale": {
+                "type": "string",
+                "description": "Grouping locale for the raw byte readout. Default \"en-US\"."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "showBytes": {
+                "type": "boolean",
+                "description": "Show the raw byte count as a trailing affix. Default true."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "IpInput",
+            "description": "IpInput — @inputcn/ip",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "ip"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "noPrivate": {
+                "type": "boolean",
+                "description": "Reject RFC 1918 private ranges."
+              },
+              "noLoopback": {
+                "type": "boolean",
+                "description": "Reject 127.0.0.0/8."
+              },
+              "noMulticast": {
+                "type": "boolean",
+                "description": "Reject 224.0.0.0/4."
+              },
+              "minPrefix": {
+                "type": "number",
+                "description": "Smallest prefix allowed. `minPrefix={8}` rejects /0 through /7. The constraint that earns its keep: it stops an admin allow-listing 0.0.0.0/0 by accident."
+              },
+              "maxPrefix": {
+                "type": "number",
+                "description": "Largest prefix allowed. `maxPrefix={24}` rejects /25 and narrower."
+              },
+              "requirePrefix": {
+                "type": "boolean",
+                "description": "Require an explicit /n suffix."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "showRange": {
+                "type": "boolean",
+                "description": "Show the computed host range for a CIDR block. Default true."
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "title": "MentionInput",
+            "description": "MentionInput — @inputcn/mention",
+            "type": "object",
+            "required": [
+              "type",
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "mention"
+              },
+              "name": {
+                "type": "string",
+                "description": "Applied to the hidden canonical input so FormData carries the real value."
+              },
+              "maxLength": {
+                "type": "number"
+              },
+              "minMentions": {
+                "type": "number"
+              },
+              "maxMentions": {
+                "type": "number",
+                "description": "Caps notification blast radius."
+              },
+              "people": {},
+              "limit": {
+                "type": "number",
+                "description": "Suggestions shown at once. Default 8."
+              },
+              "label": {
+                "description": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name."
+              },
+              "hint": {
+                "description": "Helper text under the field. Replaced by the error message while one is showing."
+              },
+              "layout": {
+                "description": "`compact` fits more people on screen; `rich` disambiguates duplicate names."
+              },
+              "rows": {
+                "type": "number"
+              },
+              "disabled": {
+                "type": "boolean"
+              },
+              "readOnly": {
+                "type": "boolean"
+              },
+              "required": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              },
+              "showError": {
+                "description": "Default `\"touched\"`."
+              },
+              "variant": {
+                "description": "Surface treatment. Default `\"outline\"`."
+              },
+              "size": {
+                "description": "Density. Default `\"default\"` (32px)."
+              },
+              "placeholder": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -20,7 +20,12 @@ import { fileURLToPath } from "node:url"
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(HERE, "../../..")
+// Two consumers, one extraction. The docs site renders these as prop tables;
+// the CLI validates form specs against them, which is what makes a
+// hallucinated prop fail at generate time instead of becoming JSX.
 const OUT = resolve(HERE, "../src/content/props.generated.json")
+const OUT_CLI = resolve(ROOT, "packages/cli/src/props.generated.json")
+const OUT_MCP = resolve(ROOT, "packages/mcp/src/props.generated.json")
 
 /** package directory -> the interfaces to read out of it */
 const COMPONENTS = [
@@ -212,7 +217,24 @@ function collect() {
       return true
     })
 
-    components[slug] = { display, package: `@inputcn/${pkg}`, own: deduped }
+    // What the companion Zod schema accepts, which is NOT the same set as the
+    // component's constraint props. cardSchema validates a card number, so it
+    // has no notExpired — expiry is a separate value with its own schema. The
+    // CLI intersects against this before generating a schema call.
+    const schemaFile = read(resolve(ROOT, `packages/${pkg}/src/schema.ts`))
+    const schemaName = schemaFile
+      ? /export interface (\w*SchemaOptions)/.exec(schemaFile)?.[1]
+      : undefined
+    const schemaOptions = schemaFile && schemaName
+      ? members(interfaceBody(schemaFile, schemaName) ?? "").map((p) => p.name)
+      : []
+
+    components[slug] = {
+      display,
+      package: `@inputcn/${pkg}`,
+      own: deduped,
+      schemaOptions,
+    }
   }
 
   return { shared, components }
@@ -223,7 +245,9 @@ const json = JSON.stringify(data, null, 2) + "\n"
 
 if (process.argv.includes("--check")) {
   const current = read(OUT)
-  if (current !== json) {
+  const currentCli = read(OUT_CLI)
+  const currentMcp = read(OUT_MCP)
+  if (current !== json || currentCli !== json || currentMcp !== json) {
     console.error(
       "props.generated.json is stale.\nRun: node apps/docs/scripts/extract-props.mjs",
     )
@@ -232,6 +256,8 @@ if (process.argv.includes("--check")) {
   console.log("props.generated.json is current.")
 } else {
   writeFileSync(OUT, json, "utf8")
+  writeFileSync(OUT_CLI, json, "utf8")
+  writeFileSync(OUT_MCP, json, "utf8")
   const n = Object.values(data.components).reduce((a, c) => a + c.own.length, 0)
   console.log(
     `props.generated.json: ${data.shared.length} shared props + ${n} component props across ${

@@ -35,6 +35,7 @@ const INK = "09090b"
 const ORDER = [
   "core", "phone", "currency", "masked", "percent", "card",
   "duration", "color", "cron", "filesize", "ip", "mention", "testing",
+  "cli", "mcp",
 ]
 
 const badge = (label, message, color) =>
@@ -88,7 +89,7 @@ function render(pkgDir) {
   const meta = META[pkgDir]
   if (!meta) throw new Error(`No README meta for packages/${pkgDir}`)
 
-  const slug = `${pkgDir === "filesize" ? "filesize" : pkgDir}-input`
+  const slug = `${pkgDir}-input`
   const entry = PROPS.components[slug]
   const constraints = entry ? entry.own.filter((p) => p.kind === "constraint") : []
   const options = entry ? entry.own.filter((p) => p.kind !== "constraint") : []
@@ -128,7 +129,7 @@ function render(pkgDir) {
   /* ---------------- install ---------------- */
   out.push(`## Install`)
   out.push(``)
-  if (pkgDir === "core" || pkgDir === "testing") {
+  if (["core", "testing", "cli", "mcp"].includes(pkgDir)) {
     out.push("```bash")
     out.push(`npm i ${pkg.name}`)
     out.push("```")

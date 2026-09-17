@@ -293,4 +293,61 @@ it("rejects a budget over the cap", async () => {
       render: "`renderField`, `renderInForm`, `renderManaged`",
     },
   },
+
+  cli: {
+    tagline: "Describe the form. Let the generator write it.",
+    blurb: [
+      "A language model is unreliable at nuanced React and very reliable at structured JSON. This flips what you ask for: the model emits a twenty-line spec, and a deterministic generator produces the component, the Zod schema and the types.",
+      "Every prop in the spec is checked against the interfaces the components actually declare, so a hallucinated prop fails immediately with a suggestion rather than becoming JSX that silently ignores it.",
+    ],
+    example: `npx inputcn init MyForm
+npx inputcn generate form.inputcn.json`,
+    highlights: [
+      [
+        "The error surface collapses",
+        "Asking a model for a React form has dozens of failure modes. Asking for JSON has one — a typo in a field name — and the generator catches that too.",
+      ],
+      [
+        "Traps handled once",
+        "Formatting options are copied into the schema automatically, so a GBP field cannot end up reporting its cap in dollars.",
+      ],
+      [
+        "Schema options are intersected, not assumed",
+        "`CardInput` has `notExpired`; `cardSchema` does not, because expiry is a separate value. The generator reads what each schema really accepts.",
+      ],
+      [
+        "Editor support",
+        "A JSON Schema at `/schema/form.json` gives autocomplete and inline errors before the generator is ever run.",
+      ],
+    ],
+    noProps: true,
+  },
+
+  mcp: {
+    tagline: "Let an agent look up the real answer instead of guessing.",
+    blurb: [
+      "An MCP server exposing what an AI agent would otherwise invent: the real prop list, the canonical value each component emits, the ready-made blocks, and a generator that refuses an invalid spec.",
+      "Every answer is read from the same extracted interfaces the documentation is built from, so the server cannot tell an agent something the library does not do.",
+    ],
+    example: `{
+  "mcpServers": {
+    "inputcn": { "command": "npx", "args": ["-y", "@inputcn/mcp"] }
+  }
+}`,
+    highlights: [
+      [
+        "Six tools",
+        "`list_components`, `get_props`, `canonical_value`, `list_blocks`, `validate_spec`, `generate_form`.",
+      ],
+      [
+        "The one that matters",
+        "`canonical_value` answers “what do I actually store” — the question agents get wrong, producing a phone field that saves the display string.",
+      ],
+      [
+        "Installation is already solved",
+        "shadcn's own MCP server reads any spec-compliant registry, so adding `@inputcn` to `components.json` works with no code from us.",
+      ],
+    ],
+    noProps: true,
+  },
 }

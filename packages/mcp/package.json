@@ -1,0 +1,29 @@
+{
+  "name": "@inputcn/mcp",
+  "version": "0.1.1",
+  "description": "MCP server for inputcn. Lets an AI agent look up real props, canonical values, blocks and Zod schemas instead of guessing them.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://input-cn.vercel.app/docs/mcp",
+  "bugs": { "url": "https://github.com/42aditya31/inputcn/issues" },
+  "publishConfig": { "access": "public" },
+  "type": "module",
+  "bin": { "inputcn-mcp": "./dist/server.js" },
+  "files": ["dist"],
+  "exports": { ".": { "types": "./dist/server.d.ts", "import": "./dist/server.js" } },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "inputcn": "workspace:*"
+  },
+  "keywords": ["mcp", "model-context-protocol", "react", "forms", "inputcn", "ai", "agent"],
+  "engines": { "node": ">=20" }
+}

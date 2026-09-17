@@ -1,0 +1,28 @@
+{
+  "name": "inputcn",
+  "version": "0.1.1",
+  "description": "Generate correct React forms from a form.inputcn.json spec. Ask your agent for the spec; let the generator write the code.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://input-cn.vercel.app/docs/form-spec",
+  "bugs": { "url": "https://github.com/42aditya31/inputcn/issues" },
+  "publishConfig": { "access": "public" },
+  "type": "module",
+  "bin": { "inputcn": "./dist/cli.js" },
+  "files": ["dist", "schema"],
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./schema.json": "./schema/form.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["react", "forms", "codegen", "shadcn", "inputcn", "ai", "agent"],
+  "engines": { "node": ">=20" }
+}

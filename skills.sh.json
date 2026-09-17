@@ -1,0 +1,16 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Forms",
+      "description": "Build React form fields that store the right value. Phone, currency, card, duration, cron, colour, file size, IP, percent, mask and mentions — with the canonical-value contract that stops a phone field saving \"(415) 555-2671\" and a price field saving a float.",
+      "skills": ["inputcn", "inputcn-blocks"]
+    },
+    {
+      "title": "Migration",
+      "description": "Move an existing form off react-phone-number-input, react-number-format, imask or a hand-rolled input — and fix the value-semantics bug it probably has on the way.",
+      "skills": ["inputcn-migrate"]
+    }
+  ]
+}

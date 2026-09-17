@@ -821,6 +821,195 @@ const schema = z.object({
   },
 
   {
+    slug: "form-spec",
+    group: "Lifecycle",
+    label: "Form spec & codegen",
+    title: "form.inputcn.json",
+    lede: (
+      <>
+        Describe the form; let the generator write it. A language model is unreliable at
+        nuanced React and very reliable at structured JSON — so ask it for the thing it is
+        good at.
+      </>
+    ),
+    blocks: [
+      {
+        kind: "prose",
+        id: "why",
+        heading: "Why a spec beats a prompt",
+        body: [
+          <>
+            Ask an agent for a React form and there are dozens of ways for the result to be
+            subtly wrong: an invented prop, a float where money should be an integer, a schema
+            that disagrees with the field it validates, a missing label. Every one of them
+            compiles and passes review.
+          </>,
+          <>
+            Ask for twenty lines of JSON instead and the only remaining failure is a typo in a
+            field name — which the generator catches, because{" "}
+            <strong>every key is checked against the interfaces the components actually
+            declare.</strong> A prop that does not exist fails at generate time with a
+            suggestion, rather than becoming JSX that silently ignores it.
+          </>,
+        ],
+      },
+      {
+        kind: "code",
+        id: "shape",
+        heading: "The shape",
+        code: `{
+  "$schema": "${SITE_URL}/schema/form.json",
+  "name": "VendorOnboarding",
+  "form": "react-hook-form",
+  "fields": [
+    { "type": "phone", "name": "phone", "label": "Mobile", "mobileOnly": true },
+    { "type": "currency", "name": "budget", "label": "Budget",
+      "currency": "GBP", "locale": "en-GB", "positive": true, "max": 1000000 }
+  ]
+}`,
+        caption: (
+          <>
+            The <code>$schema</code> line gives you autocomplete and inline errors in any
+            editor, from the same extracted types.
+          </>
+        ),
+      },
+      {
+        kind: "code",
+        id: "run",
+        heading: "Generate",
+        code: `npx inputcn init MyForm          # write a starter spec
+npx inputcn generate form.inputcn.json
+npx inputcn generate spec.json --out src/components
+npx inputcn types                # list field types and what each emits`,
+      },
+      {
+        kind: "prose",
+        id: "what",
+        heading: "What it handles for you",
+        body: [
+          <>
+            The generator makes the decisions that are easy to get wrong: which companion
+            schema validates which field, a numeric default for numeric fields, and{" "}
+            <strong>copying formatting options into the schema</strong> — without which a GBP
+            field reports its cap in dollars.
+          </>,
+          <>
+            It also knows the two sets are not identical. <code>CardInput</code> has{" "}
+            <code>notExpired</code>; <code>cardSchema</code> does not, because the schema
+            validates a card number and expiry is a separate value. Passing it through would
+            produce code that does not compile, so the generator intersects against what each
+            schema really accepts.
+          </>,
+        ],
+      },
+      {
+        kind: "prose",
+        id: "builder",
+        heading: "One file, several views",
+        body: [
+          <>
+            The spec is also the save format for anything that edits a form: a visual builder,
+            a block, or an agent. Code, prompt and preview all become views of the same file,
+            which is what keeps them from disagreeing.
+          </>,
+        ],
+      },
+    ],
+    note: "Designed to be boring and stable. The format will grow slowly, because a file people have on disk is expensive to change.",
+  },
+
+  {
+    slug: "mcp",
+    group: "Lifecycle",
+    label: "MCP & agent skills",
+    title: "Agents",
+    lede: (
+      <>
+        Most people now reach this library through a coding agent. These are the three ways to
+        make sure the agent gets it right rather than guessing.
+      </>
+    ),
+    blocks: [
+      {
+        kind: "code",
+        id: "registry",
+        heading: "1. The registry namespace",
+        code: `// components.json
+{
+  "registries": {
+    "@inputcn": "${SITE_URL}/r/{name}.json"
+  }
+}`,
+        caption: (
+          <>
+            This needs no code from us — shadcn&rsquo;s own MCP server reads any
+            spec-compliant registry. Add it and an agent can browse and install inputcn
+            components by name.
+          </>
+        ),
+      },
+      {
+        kind: "code",
+        id: "skill",
+        heading: "2. The skills",
+        code: `npx skills add 42aditya31/inputcn`,
+        caption: (
+          <>
+            Three skills: <code>inputcn</code> for building a field, <code>inputcn-blocks</code>{" "}
+            for a whole form, and <code>inputcn-migrate</code> for moving off another library.
+            They carry the canonical-value table, the generated prop list and the traps —
+            loaded into the agent at the moment it writes code, not left in documentation it
+            may not read.
+          </>
+        ),
+      },
+      {
+        kind: "code",
+        id: "server",
+        heading: "3. The MCP server",
+        code: `{
+  "mcpServers": {
+    "inputcn": { "command": "npx", "args": ["-y", "@inputcn/mcp"] }
+  }
+}`,
+      },
+      {
+        kind: "table",
+        id: "tools",
+        heading: "What the server answers",
+        cols: ["TOOL", "QUESTION IT REPLACES"],
+        rows: [
+          ["inputcn_list_components", "Which component do I need, and what does it emit?"],
+          ["inputcn_get_props", "What props does this really have? (guessing is the failure)"],
+          ["inputcn_canonical_value", "What do I actually store, and what is the usual mistake?"],
+          ["inputcn_list_blocks", "Is there already a whole form for this?"],
+          ["inputcn_validate_spec", "Is this spec correct, before I write any files?"],
+          ["inputcn_generate_form", "Write the form for me, correctly."],
+        ],
+      },
+      {
+        kind: "prose",
+        id: "why",
+        heading: "Why this matters more than documentation",
+        body: [
+          <>
+            Agents are not bad at finding component libraries. They are bad at{" "}
+            <strong>value semantics</strong>. An agent will happily write a phone field that
+            stores <code>(415) 555-2671</code> and a price field that stores a float. The code
+            looks right, passes review, and is wrong.
+          </>,
+          <>
+            Every tool above exists to answer one of those questions with the real answer,
+            read from the same extracted interfaces the documentation is built from. The
+            server cannot tell an agent something the library does not do.
+          </>,
+        ],
+      },
+    ],
+  },
+
+  {
     slug: "testing",
     group: "Lifecycle",
     label: "Testing helpers",
