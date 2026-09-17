@@ -17,7 +17,9 @@ import {
 export type DurationLayout = "text" | "segmented" | "presets"
 
 export interface DurationInputProps extends UseDurationInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** PRD §6. `text` is fastest for keyboard users; `segmented` is unambiguous. */
   layout?: DurationLayout

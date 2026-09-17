@@ -8,7 +8,9 @@ import { useCronInput, type UseCronInputOptions } from "./use-cron-input.js"
 export type CronLayout = "expression" | "builder"
 
 export interface CronInputProps extends UseCronInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** `expression` for engineers, `builder` for everyone else. */
   layout?: CronLayout

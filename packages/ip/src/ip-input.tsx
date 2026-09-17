@@ -5,7 +5,9 @@ import { forwardRef, useId, useImperativeHandle, type ReactNode } from "react"
 import { useIpInput, type UseIpInputOptions } from "./use-ip-input.js"
 
 export interface IpInputProps extends UseIpInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** Show the computed host range for a CIDR block. Default true. */
   showRange?: boolean

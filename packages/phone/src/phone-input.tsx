@@ -15,7 +15,9 @@ import type { Country } from "./countries.js"
 import { usePhoneInput, type UsePhoneInputOptions } from "./use-phone-input.js"
 
 export interface PhoneInputProps extends UsePhoneInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** Override the country trigger and popover. */
   renderCountry?: (api: {

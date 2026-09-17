@@ -11,7 +11,9 @@ import {
 export type MentionLayout = "compact" | "rich"
 
 export interface MentionInputProps extends UseMentionInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** `compact` fits more people on screen; `rich` disambiguates duplicate names. */
   layout?: MentionLayout

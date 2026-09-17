@@ -7,7 +7,9 @@ import { useCardInput, type UseCardInputOptions } from "./use-card-input.js"
 export type CardLayout = "stacked" | "single"
 
 export interface CardInputProps extends UseCardInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** `stacked` is three fields; `single` is one row, Stripe-style. */
   layout?: CardLayout

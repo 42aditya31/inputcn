@@ -8,7 +8,9 @@ import {
 } from "./use-percent-input.js"
 
 export interface PercentInputProps extends UsePercentInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
 }
 

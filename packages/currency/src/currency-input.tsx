@@ -10,7 +10,9 @@ import {
 export type CurrencyLayout = "inline" | "display" | "stepper"
 
 export interface CurrencyInputProps extends UseCurrencyInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** PRD §6 layouts. `inline` is the default form-row shape. */
   layout?: CurrencyLayout

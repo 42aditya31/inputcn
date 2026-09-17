@@ -169,14 +169,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -273,14 +273,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -342,14 +342,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -418,14 +418,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         }
       ]
@@ -501,14 +501,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -584,14 +584,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -653,14 +653,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -708,14 +708,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -791,14 +791,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -860,14 +860,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {
@@ -922,14 +922,14 @@
           "name": "label",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Visible label. Supply this or `aria-label` — a field with neither has no accessible name.",
           "kind": "presentation"
         },
         {
           "name": "hint",
           "optional": true,
           "type": "ReactNode",
-          "doc": "",
+          "doc": "Helper text under the field. Replaced by the error message while one is showing.",
           "kind": "presentation"
         },
         {

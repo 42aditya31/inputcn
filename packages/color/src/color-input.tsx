@@ -5,7 +5,9 @@ import { forwardRef, useId, useImperativeHandle, type ReactNode } from "react"
 import { useColorInput, type UseColorInputOptions } from "./use-color-input.js"
 
 export interface ColorInputProps extends UseColorInputOptions {
+  /** Visible label. Supply this or `aria-label` — a field with neither has no accessible name. */
   label?: ReactNode
+  /** Helper text under the field. Replaced by the error message while one is showing. */
   hint?: ReactNode
   /** Show the native OS picker alongside the text field. Default true. */
   nativePicker?: boolean

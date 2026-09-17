@@ -4,18 +4,19 @@
   "type": "module",
   "packageManager": "pnpm@9.12.0",
   "scripts": {
-    "build": "pnpm -r --filter \"./packages/*\" build && pnpm registry",
+    "build": "node scripts/build-readmes.mjs && pnpm -r --filter \"./packages/*\" build && pnpm registry",
     "dev": "pnpm --filter @inputcn/demo dev",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit -p tsconfig.json && pnpm -r --filter \"./packages/*\" typecheck && pnpm --filter @inputcn/docs typecheck",
+    "typecheck": "tsc --noEmit -p tsconfig.json && pnpm -r --filter \"./packages/*\" typecheck && pnpm --filter @inputcn/docs typecheck && node scripts/build-readmes.mjs --check",
     "lint": "eslint packages --ext .ts,.tsx",
     "clean": "rimraf packages/*/dist packages/*/.turbo node_modules/.cache",
     "registry": "node scripts/build-registry.mjs",
     "dev:packages": "pnpm -r --parallel --filter \"./packages/*\" dev",
     "docs": "pnpm --filter @inputcn/docs dev",
     "docs:build": "pnpm --filter @inputcn/docs build",
-    "site-url": "node scripts/set-site-url.mjs"
+    "site-url": "node scripts/set-site-url.mjs",
+    "readmes": "node scripts/build-readmes.mjs"
   },
   "devDependencies": {
     "@fontsource/geist-mono": "^5.3.0",
