@@ -1,0 +1,353 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "inputcn",
+  "homepage": "https://inputcn.dev",
+  "items": [
+    {
+      "name": "inputcn-base",
+      "type": "registry:file",
+      "title": "inputcn base styles",
+      "description": "Token-driven stylesheet for every inputcn component. Reads your shadcn CSS variables; hardcodes no colour or radius. Import once.",
+      "dependencies": [
+        "@inputcn/core"
+      ],
+      "files": [
+        {
+          "path": "packages/core/styles/inputcn.css",
+          "type": "registry:file",
+          "target": "components/inputcn/inputcn.css"
+        }
+      ]
+    },
+    {
+      "name": "phone-input",
+      "type": "registry:ui",
+      "title": "Phone Input",
+      "description": "Phone number field with a searchable country selector, live per-country formatting and E.164 output. Smart paste detects the country and offers an undo.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/phone"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/phone/src/phone-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/phone/phone-input.tsx"
+        },
+        {
+          "path": "packages/phone/src/use-phone-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/phone/use-phone-input.ts"
+        },
+        {
+          "path": "packages/phone/src/phone.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/phone/phone.ts"
+        },
+        {
+          "path": "packages/phone/src/countries.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/phone/countries.ts"
+        }
+      ]
+    },
+    {
+      "name": "currency-input",
+      "type": "registry:ui",
+      "title": "Currency Input",
+      "description": "Money field emitting integer minor units, so no float ever touches a price. Locale-correct formatting, zero-decimal currencies, three layouts.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/currency"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/currency/src/currency-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/currency/currency-input.tsx"
+        },
+        {
+          "path": "packages/currency/src/use-currency-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/currency/use-currency-input.ts"
+        },
+        {
+          "path": "packages/currency/src/currency.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/currency/currency.ts"
+        }
+      ]
+    },
+    {
+      "name": "masked-input",
+      "type": "registry:ui",
+      "title": "Masked Input",
+      "description": "Template-masked text field with true caret preservation. Emits the raw value, never the formatted string. Twelve presets included.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/masked"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/masked/src/masked-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/masked/masked-input.tsx"
+        },
+        {
+          "path": "packages/masked/src/use-masked-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/masked/use-masked-input.ts"
+        }
+      ]
+    },
+    {
+      "name": "percent-input",
+      "type": "registry:ui",
+      "title": "Percent Input",
+      "description": "Percentage field that displays 12.5 and emits 0.125. The off-by-100 bug, solved once.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/percent"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/percent/src/percent-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/percent/percent-input.tsx"
+        },
+        {
+          "path": "packages/percent/src/use-percent-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/percent/use-percent-input.ts"
+        },
+        {
+          "path": "packages/percent/src/percent.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/percent/percent.ts"
+        }
+      ]
+    },
+    {
+      "name": "card-input",
+      "type": "registry:ui",
+      "title": "Credit Card Input",
+      "description": "Card number, expiry and CVC with live brand detection, Luhn validation, brand-aware grouping and focus advancement.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/card"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/card/src/card-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/card/card-input.tsx"
+        },
+        {
+          "path": "packages/card/src/use-card-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/card/use-card-input.ts"
+        },
+        {
+          "path": "packages/card/src/card.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/card/card.ts"
+        }
+      ]
+    },
+    {
+      "name": "duration-input",
+      "type": "registry:ui",
+      "title": "Duration Input",
+      "description": "Duration field accepting 2h 30m, 90m or 1:30 and emitting seconds. Text, segmented and preset layouts.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/duration"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/duration/src/duration-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/duration/duration-input.tsx"
+        },
+        {
+          "path": "packages/duration/src/use-duration-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/duration/use-duration-input.ts"
+        },
+        {
+          "path": "packages/duration/src/duration.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/duration/duration.ts"
+        }
+      ]
+    },
+    {
+      "name": "color-input",
+      "type": "registry:ui",
+      "title": "Colour Input",
+      "description": "Colour field with a swatch palette, format conversion and live WCAG contrast checking against a reference colour.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/color"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/color/src/color-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/color/color-input.tsx"
+        },
+        {
+          "path": "packages/color/src/use-color-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/color/use-color-input.ts"
+        },
+        {
+          "path": "packages/color/src/color.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/color/color.ts"
+        }
+      ]
+    },
+    {
+      "name": "cron-input",
+      "type": "registry:ui",
+      "title": "Cron Input",
+      "description": "Cron schedule field with a plain-English preview, upcoming run times, a visual builder and a minInterval guard.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/cron"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/cron/src/cron-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/cron/cron-input.tsx"
+        },
+        {
+          "path": "packages/cron/src/use-cron-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/cron/use-cron-input.ts"
+        },
+        {
+          "path": "packages/cron/src/cron.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/cron/cron.ts"
+        }
+      ]
+    },
+    {
+      "name": "filesize-input",
+      "type": "registry:ui",
+      "title": "File Size Input",
+      "description": "File size field that keeps MB and MiB distinct and emits bytes.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/filesize"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/filesize/src/filesize-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/filesize/filesize-input.tsx"
+        },
+        {
+          "path": "packages/filesize/src/use-filesize-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/filesize/use-filesize-input.ts"
+        },
+        {
+          "path": "packages/filesize/src/filesize.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/filesize/filesize.ts"
+        }
+      ]
+    },
+    {
+      "name": "ip-input",
+      "type": "registry:ui",
+      "title": "IP / CIDR Input",
+      "description": "IPv4 and CIDR field with range computation, address classification and prefix bounds.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/ip"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/ip/src/ip-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/ip/ip-input.tsx"
+        },
+        {
+          "path": "packages/ip/src/use-ip-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/ip/use-ip-input.ts"
+        },
+        {
+          "path": "packages/ip/src/ip.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/ip/ip.ts"
+        }
+      ]
+    },
+    {
+      "name": "mention-input",
+      "type": "registry:ui",
+      "title": "Mention Input",
+      "description": "Comment field with an @-triggered picker. Emits text plus the ids actually mentioned, recomputed on every edit.",
+      "dependencies": [
+        "@inputcn/core",
+        "@inputcn/mention"
+      ],
+      "registryDependencies": [
+        "inputcn-base"
+      ],
+      "files": [
+        {
+          "path": "packages/mention/src/mention-input.tsx",
+          "type": "registry:ui",
+          "target": "components/inputcn/mention/mention-input.tsx"
+        },
+        {
+          "path": "packages/mention/src/use-mention-input.ts",
+          "type": "registry:hook",
+          "target": "components/inputcn/mention/use-mention-input.ts"
+        },
+        {
+          "path": "packages/mention/src/mention.ts",
+          "type": "registry:lib",
+          "target": "components/inputcn/mention/mention.ts"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+*.tsbuildinfo
+.turbo/
+
+# NOT ignored, on purpose:
+#   public/r/*.json  — the registry IS the product. It has to be in the repo
+#                      so the deployed site can serve it, and so a diff shows
+#                      when a component's published source changes.
+#   apps/docs/src/content/props.generated.json
+#                    — generated, but committed and verified by
+#                      `extract-props.mjs --check` in CI, which is what makes
+#                      a stale props table a failing build instead of a lie.
+
+# tooling
+.vercel/
+coverage/
+.eslintcache
+
+# editors / os
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# local env
+.env
+.env.*
+!.env.example

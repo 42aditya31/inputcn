@@ -1,0 +1,43 @@
+{
+  "name": "inputcn-monorepo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "build": "pnpm -r --filter \"./packages/*\" build && pnpm registry",
+    "dev": "pnpm --filter @inputcn/demo dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit -p tsconfig.json && pnpm -r --filter \"./packages/*\" typecheck && pnpm --filter @inputcn/docs typecheck",
+    "lint": "eslint packages --ext .ts,.tsx",
+    "clean": "rimraf packages/*/dist packages/*/.turbo node_modules/.cache",
+    "registry": "node scripts/build-registry.mjs",
+    "dev:packages": "pnpm -r --parallel --filter \"./packages/*\" dev",
+    "docs": "pnpm --filter @inputcn/docs dev",
+    "docs:build": "pnpm --filter @inputcn/docs build",
+    "site-url": "node scripts/set-site-url.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/geist-mono": "^5.3.0",
+    "@fontsource/geist-sans": "^5.3.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "axe-core": "^4.13.0",
+    "jsdom": "^25.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "zod": "^4.6.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

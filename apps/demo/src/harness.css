@@ -1,0 +1,212 @@
+/* Harness chrome only. Nothing here styles a library component. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable Text",
+    "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 22px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--background) 90%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.bar h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.bar .sp { flex: 1; }
+
+.ctl { display: flex; align-items: center; gap: 7px; }
+
+.ctl > span {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.seg {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.seg button {
+  padding: 5px 9px;
+  border: 0;
+  border-right: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted-foreground);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.seg button:last-child { border-right: 0; }
+.seg button:hover { background: var(--accent); color: var(--foreground); }
+.seg button[aria-pressed="true"] {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.swatches { display: flex; gap: 5px; }
+
+.sw {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.sw[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 1.5px solid var(--foreground);
+  border-radius: 8px;
+}
+
+input[type="range"] {
+  width: 90px;
+  accent-color: var(--primary);
+}
+
+main { max-width: 1120px; margin: 0 auto; padding: 30px 22px 90px; }
+
+h2 {
+  margin: 44px 0 4px;
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--foreground);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2:first-of-type { margin-top: 10px; }
+
+.note {
+  margin: 0 0 22px;
+  font-size: 13px;
+  color: var(--muted-foreground);
+  max-width: 70ch;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.cell {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.cell > h3 {
+  margin: 0 0 3px;
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.cell > p.sub {
+  margin: 0 0 14px;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+.emit {
+  margin-top: 12px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: var(--muted);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 10.5px;
+  line-height: 1.8;
+  color: var(--muted-foreground);
+  word-break: break-all;
+}
+
+.emit b { color: var(--foreground); font-weight: 600; }
+
+.stack { display: flex; flex-direction: column; gap: 16px; }
+
+.formcard {
+  max-width: 400px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.submit {
+  width: 100%;
+  height: 32px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+pre.out {
+  margin: 14px 0 0;
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--muted);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.new {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 20px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}

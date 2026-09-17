@@ -1,0 +1,952 @@
+{
+  "shared": [
+    {
+      "name": "value",
+      "optional": true,
+      "type": "T",
+      "doc": "Canonical value. Controlled mode."
+    },
+    {
+      "name": "defaultValue",
+      "optional": true,
+      "type": "T",
+      "doc": "Canonical value. Uncontrolled mode. Mutually exclusive with `value`."
+    },
+    {
+      "name": "onChange",
+      "optional": true,
+      "type": "(value: T) => void",
+      "doc": "Emits the canonical value — never a DOM event."
+    },
+    {
+      "name": "onBlur",
+      "optional": true,
+      "type": "() => void",
+      "doc": "Fires when focus leaves the whole component, not between its parts."
+    },
+    {
+      "name": "name",
+      "optional": true,
+      "type": "string",
+      "doc": "Applied to the hidden canonical input so FormData carries the real value."
+    },
+    {
+      "name": "disabled",
+      "optional": true,
+      "type": "boolean",
+      "doc": ""
+    },
+    {
+      "name": "readOnly",
+      "optional": true,
+      "type": "boolean",
+      "doc": ""
+    },
+    {
+      "name": "required",
+      "optional": true,
+      "type": "boolean | string",
+      "doc": ""
+    },
+    {
+      "name": "validate",
+      "optional": true,
+      "type": "(value: T) => true | string",
+      "doc": "Custom synchronous rule. Return true, or the message to display."
+    },
+    {
+      "name": "messages",
+      "optional": true,
+      "type": "MessageMap",
+      "doc": "Override built-in messages by rule name."
+    },
+    {
+      "name": "showError",
+      "optional": true,
+      "type": "ShowError",
+      "doc": "Default `\"touched\"`."
+    },
+    {
+      "name": "onValidityChange",
+      "optional": true,
+      "type": "(state: ValidityState) => void",
+      "doc": "Reports validity upward regardless of mode."
+    },
+    {
+      "name": "mode",
+      "optional": true,
+      "type": "FieldMode",
+      "doc": "Force a mode instead of auto-detecting. Escape hatch only."
+    },
+    {
+      "name": "variant",
+      "optional": true,
+      "type": "FieldVariant",
+      "doc": "Surface treatment. Default `\"outline\"`."
+    },
+    {
+      "name": "size",
+      "optional": true,
+      "type": "FieldSize",
+      "doc": "Density. Default `\"default\"` (32px)."
+    },
+    {
+      "name": "id",
+      "optional": true,
+      "type": "string",
+      "doc": ""
+    },
+    {
+      "name": "className",
+      "optional": true,
+      "type": "string",
+      "doc": ""
+    },
+    {
+      "name": "placeholder",
+      "optional": true,
+      "type": "string",
+      "doc": ""
+    },
+    {
+      "name": "autoFocus",
+      "optional": true,
+      "type": "boolean",
+      "doc": ""
+    },
+    {
+      "name": "aria-label",
+      "optional": true,
+      "type": "string",
+      "doc": ""
+    },
+    {
+      "name": "aria-labelledby",
+      "optional": true,
+      "type": "string",
+      "doc": ""
+    },
+    {
+      "name": "aria-describedby",
+      "optional": true,
+      "type": "string",
+      "doc": ""
+    },
+    {
+      "name": "aria-invalid",
+      "optional": true,
+      "type": "boolean | \"true\" | \"false\"",
+      "doc": ""
+    }
+  ],
+  "components": {
+    "phone-input": {
+      "display": "PhoneInput",
+      "package": "@inputcn/phone",
+      "own": [
+        {
+          "name": "countries",
+          "optional": true,
+          "type": "readonly string[]",
+          "doc": "Restrict the selector and reject numbers outside the list.",
+          "kind": "constraint"
+        },
+        {
+          "name": "mobileOnly",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Reject numbers that look like landlines.",
+          "kind": "constraint"
+        },
+        {
+          "name": "defaultCountry",
+          "optional": true,
+          "type": "string",
+          "doc": "Country selected before the user picks one. Defaults to \"US\".",
+          "kind": "constraint"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "renderCountry",
+          "optional": true,
+          "type": "(api: { country: Country | undefined available: readonly Country[] setCountry: (iso: string) => void disabled: boolean | undefined }) => ReactNode",
+          "doc": "Override the country trigger and popover.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "currency-input": {
+      "display": "CurrencyInput",
+      "package": "@inputcn/currency",
+      "own": [
+        {
+          "name": "min",
+          "optional": true,
+          "type": "number",
+          "doc": "Minor units.",
+          "kind": "constraint"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "type": "number",
+          "doc": "Minor units.",
+          "kind": "constraint"
+        },
+        {
+          "name": "positive",
+          "optional": true,
+          "type": "boolean",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "negative",
+          "optional": true,
+          "type": "boolean",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "nonZero",
+          "optional": true,
+          "type": "boolean",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "wholeUnitsOnly",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Reject fractional currency units (e.g. whole dollars only).",
+          "kind": "constraint"
+        },
+        {
+          "name": "multipleOf",
+          "optional": true,
+          "type": "number",
+          "doc": "Minor units the value must be a multiple of.",
+          "kind": "constraint"
+        },
+        {
+          "name": "currency",
+          "optional": true,
+          "type": "string",
+          "doc": "ISO 4217. Default \"USD\".",
+          "kind": "option"
+        },
+        {
+          "name": "locale",
+          "optional": true,
+          "type": "string",
+          "doc": "BCP 47. Default \"en-US\".",
+          "kind": "option"
+        },
+        {
+          "name": "allowNegative",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Allow typing a negative value with \"-\". Default false.",
+          "kind": "option"
+        },
+        {
+          "name": "step",
+          "optional": true,
+          "type": "number",
+          "doc": "Stepper increment in minor units. Default one whole unit.",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "layout",
+          "optional": true,
+          "type": "CurrencyLayout",
+          "doc": "PRD §6 layouts. `inline` is the default form-row shape.",
+          "kind": "presentation"
+        },
+        {
+          "name": "showCode",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the ISO code as a trailing affix. Default true.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "masked-input": {
+      "display": "MaskedInput",
+      "package": "@inputcn/masked",
+      "own": [
+        {
+          "name": "complete",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Require every slot in the mask to be filled.",
+          "kind": "constraint"
+        },
+        {
+          "name": "minLength",
+          "optional": true,
+          "type": "number",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "maxLength",
+          "optional": true,
+          "type": "number",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "pattern",
+          "optional": true,
+          "type": "RegExp",
+          "doc": "Tested against the RAW (unmasked) value.",
+          "kind": "constraint"
+        },
+        {
+          "name": "mask",
+          "optional": false,
+          "type": "string",
+          "doc": "Template. `#` digit, `A` letter, `*` alphanumeric, `\\` escapes. e.g. `\"###.###.###-##\"`, `\"##/##/####\"`, `\"AA-####\"`.",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "prefix",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "Rendered before the field, inside the border.",
+          "kind": "presentation"
+        },
+        {
+          "name": "suffix",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "Rendered after the field, inside the border.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "percent-input": {
+      "display": "PercentInput",
+      "package": "@inputcn/percent",
+      "own": [
+        {
+          "name": "min",
+          "optional": true,
+          "type": "number",
+          "doc": "As a fraction: 0.05 means 5%.",
+          "kind": "constraint"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "type": "number",
+          "doc": "As a fraction: 1 means 100%.",
+          "kind": "constraint"
+        },
+        {
+          "name": "positive",
+          "optional": true,
+          "type": "boolean",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "integer",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Reject fractional percentages — 12% yes, 12.5% no.",
+          "kind": "constraint"
+        },
+        {
+          "name": "precision",
+          "optional": true,
+          "type": "number",
+          "doc": "Maximum decimal places in the displayed percentage. Default 2.",
+          "kind": "constraint"
+        },
+        {
+          "name": "locale",
+          "optional": true,
+          "type": "string",
+          "doc": "",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "card-input": {
+      "display": "CardInput",
+      "package": "@inputcn/card",
+      "own": [
+        {
+          "name": "brands",
+          "optional": true,
+          "type": "readonly CardBrand[]",
+          "doc": "Restrict to the brands your PSP actually accepts.",
+          "kind": "constraint"
+        },
+        {
+          "name": "notExpired",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Reject a card whose expiry has passed. Requires an expiry value.",
+          "kind": "constraint"
+        },
+        {
+          "name": "requireCvc",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Require the CVC to be filled to the brand's length.",
+          "kind": "constraint"
+        },
+        {
+          "name": "expiry",
+          "optional": true,
+          "type": "string",
+          "doc": "Expiry as typed, e.g. \"04 / 28\". Controlled separately from the number.",
+          "kind": "option"
+        },
+        {
+          "name": "defaultExpiry",
+          "optional": true,
+          "type": "string",
+          "doc": "",
+          "kind": "option"
+        },
+        {
+          "name": "onExpiryChange",
+          "optional": true,
+          "type": "(value: string) => void",
+          "doc": "",
+          "kind": "option"
+        },
+        {
+          "name": "cvc",
+          "optional": true,
+          "type": "string",
+          "doc": "",
+          "kind": "option"
+        },
+        {
+          "name": "defaultCvc",
+          "optional": true,
+          "type": "string",
+          "doc": "",
+          "kind": "option"
+        },
+        {
+          "name": "onCvcChange",
+          "optional": true,
+          "type": "(value: string) => void",
+          "doc": "",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "layout",
+          "optional": true,
+          "type": "CardLayout",
+          "doc": "`stacked` is three fields; `single` is one row, Stripe-style.",
+          "kind": "presentation"
+        },
+        {
+          "name": "expiryName",
+          "optional": true,
+          "type": "string",
+          "doc": "Field names for native submission.",
+          "kind": "presentation"
+        },
+        {
+          "name": "cvcName",
+          "optional": true,
+          "type": "string",
+          "doc": "",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "duration-input": {
+      "display": "DurationInput",
+      "package": "@inputcn/duration",
+      "own": [
+        {
+          "name": "min",
+          "optional": true,
+          "type": "DurationBound",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "type": "DurationBound",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "multipleOf",
+          "optional": true,
+          "type": "DurationBound",
+          "doc": "Must be a whole multiple of this. Accepts \"15m\".",
+          "kind": "constraint"
+        },
+        {
+          "name": "maxUnit",
+          "optional": true,
+          "type": "DurationUnit",
+          "doc": "Largest unit shown when formatting. Default \"d\".",
+          "kind": "constraint"
+        },
+        {
+          "name": "bareUnit",
+          "optional": true,
+          "type": "DurationUnit",
+          "doc": "What a bare number means. Default \"m\".",
+          "kind": "option"
+        },
+        {
+          "name": "presets",
+          "optional": true,
+          "type": "readonly string[]",
+          "doc": "Presets offered by the `presets` layout.",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "layout",
+          "optional": true,
+          "type": "DurationLayout",
+          "doc": "PRD §6. `text` is fastest for keyboard users; `segmented` is unambiguous.",
+          "kind": "presentation"
+        },
+        {
+          "name": "showNormalised",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the normalised value as a trailing affix. Default true.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "color-input": {
+      "display": "ColorInput",
+      "package": "@inputcn/color",
+      "own": [
+        {
+          "name": "contrastAgainst",
+          "optional": true,
+          "type": "string",
+          "doc": "Check contrast against this colour. The differentiating constraint: it stops a customer picking a brand colour nobody can read.",
+          "kind": "constraint"
+        },
+        {
+          "name": "minContrast",
+          "optional": true,
+          "type": "number",
+          "doc": "Minimum WCAG ratio. 4.5 is AA for body text, 3 is AA for large text.",
+          "kind": "constraint"
+        },
+        {
+          "name": "allowed",
+          "optional": true,
+          "type": "readonly string[]",
+          "doc": "Restrict to a palette.",
+          "kind": "constraint"
+        },
+        {
+          "name": "outputFormat",
+          "optional": true,
+          "type": "ColorFormat",
+          "doc": "Output format for `onChange`. Default \"hex\" — the only lossless one.",
+          "kind": "option"
+        },
+        {
+          "name": "swatches",
+          "optional": true,
+          "type": "readonly string[]",
+          "doc": "Palette shown beneath the field.",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "nativePicker",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the native OS picker alongside the text field. Default true.",
+          "kind": "presentation"
+        },
+        {
+          "name": "showSwatches",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the swatch palette. Default true.",
+          "kind": "presentation"
+        },
+        {
+          "name": "showContrast",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the live contrast reading when `contrastAgainst` is set. Default true.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "cron-input": {
+      "display": "CronInput",
+      "package": "@inputcn/cron",
+      "own": [
+        {
+          "name": "minInterval",
+          "optional": true,
+          "type": "IntervalBound",
+          "doc": "Reject schedules that fire more often than this. The constraint that earns its keep — it stops someone scheduling a job every second and taking down a worker queue.",
+          "kind": "constraint"
+        },
+        {
+          "name": "previewCount",
+          "optional": true,
+          "type": "number",
+          "doc": "How many upcoming runs to compute for the preview. Default 3.",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "layout",
+          "optional": true,
+          "type": "CronLayout",
+          "doc": "`expression` for engineers, `builder` for everyone else.",
+          "kind": "presentation"
+        },
+        {
+          "name": "showDescription",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the plain-English reading. Default true.",
+          "kind": "presentation"
+        },
+        {
+          "name": "showUpcoming",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show upcoming run times. Default true.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "filesize-input": {
+      "display": "FileSizeInput",
+      "package": "@inputcn/filesize",
+      "own": [
+        {
+          "name": "min",
+          "optional": true,
+          "type": "SizeBound",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "max",
+          "optional": true,
+          "type": "SizeBound",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "binary",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Use KiB/MiB/GiB and read ambiguous units as powers of 1024. Default false.",
+          "kind": "option"
+        },
+        {
+          "name": "bareUnit",
+          "optional": true,
+          "type": "string",
+          "doc": "Unit assumed when the user types a bare number. Default \"MB\".",
+          "kind": "option"
+        },
+        {
+          "name": "precision",
+          "optional": true,
+          "type": "number",
+          "doc": "Decimals when formatting. Default 2.",
+          "kind": "option"
+        },
+        {
+          "name": "locale",
+          "optional": true,
+          "type": "string",
+          "doc": "Grouping locale for the raw byte readout. Default \"en-US\".",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "showBytes",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the raw byte count as a trailing affix. Default true.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "ip-input": {
+      "display": "IpInput",
+      "package": "@inputcn/ip",
+      "own": [
+        {
+          "name": "noPrivate",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Reject RFC 1918 private ranges.",
+          "kind": "constraint"
+        },
+        {
+          "name": "noLoopback",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Reject 127.0.0.0/8.",
+          "kind": "constraint"
+        },
+        {
+          "name": "noMulticast",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Reject 224.0.0.0/4.",
+          "kind": "constraint"
+        },
+        {
+          "name": "minPrefix",
+          "optional": true,
+          "type": "number",
+          "doc": "Smallest prefix allowed. `minPrefix={8}` rejects /0 through /7. The constraint that earns its keep: it stops an admin allow-listing 0.0.0.0/0 by accident.",
+          "kind": "constraint"
+        },
+        {
+          "name": "maxPrefix",
+          "optional": true,
+          "type": "number",
+          "doc": "Largest prefix allowed. `maxPrefix={24}` rejects /25 and narrower.",
+          "kind": "constraint"
+        },
+        {
+          "name": "requirePrefix",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Require an explicit /n suffix.",
+          "kind": "constraint"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "showRange",
+          "optional": true,
+          "type": "boolean",
+          "doc": "Show the computed host range for a CIDR block. Default true.",
+          "kind": "presentation"
+        }
+      ]
+    },
+    "mention-input": {
+      "display": "MentionInput",
+      "package": "@inputcn/mention",
+      "own": [
+        {
+          "name": "maxLength",
+          "optional": true,
+          "type": "number",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "minMentions",
+          "optional": true,
+          "type": "number",
+          "doc": "",
+          "kind": "constraint"
+        },
+        {
+          "name": "maxMentions",
+          "optional": true,
+          "type": "number",
+          "doc": "Caps notification blast radius.",
+          "kind": "constraint"
+        },
+        {
+          "name": "people",
+          "optional": false,
+          "type": "readonly Person[]",
+          "doc": "",
+          "kind": "option"
+        },
+        {
+          "name": "limit",
+          "optional": true,
+          "type": "number",
+          "doc": "Suggestions shown at once. Default 8.",
+          "kind": "option"
+        },
+        {
+          "name": "label",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "hint",
+          "optional": true,
+          "type": "ReactNode",
+          "doc": "",
+          "kind": "presentation"
+        },
+        {
+          "name": "layout",
+          "optional": true,
+          "type": "MentionLayout",
+          "doc": "`compact` fits more people on screen; `rich` disambiguates duplicate names.",
+          "kind": "presentation"
+        },
+        {
+          "name": "rows",
+          "optional": true,
+          "type": "number",
+          "doc": "",
+          "kind": "presentation"
+        }
+      ]
+    }
+  }
+}

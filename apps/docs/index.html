@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <title>inputcn — the inputs shadcn/ui doesn't ship</title>
+    <meta
+      name="description"
+      content="Twelve hard inputs, one contract. Phone, currency, card, duration, cron, colour, file size, IP, percent, mask and mentions — copy-pasteable, accessible, and validated by props."
+    />
+    <script>
+      // Applied before first paint so the page never flashes the wrong theme.
+      try {
+        var t = localStorage.getItem("inputcn-theme")
+        if (!t) t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
+        document.documentElement.dataset.theme = t
+      } catch (_) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+# inputcn
+
+> React form inputs that shadcn/ui doesn't ship — phone, currency, masked text
+> and more. Correct by default, native to your shadcn theme, and installed as
+> source you own. MIT, zero runtime services.
+
+Every component follows one contract: `value` and `onChange` carry the
+CANONICAL value, never the formatted string the user sees. A phone field
+displays `(415) 555-2671` and emits `+14155552671`. A currency field displays
+`$1,234.50` and emits the integer `123450`.
+
+Validation is declared as props — no schema, resolver or form library required.
+Components auto-detect whether a form library is in charge: inside a shadcn
+`<FormField>` they stay silent and let the form render errors; standalone, they
+render their own.
+
+## Install
+
+A component (copies source into the project, `@inputcn/core` comes from npm):
+
+```
+npx shadcn@latest add https://inputcn.dev/r/phone-input.json
+```
+
+Or as a plain dependency:
+
+```
+npm i @inputcn/phone
+```
+
+## Components
+
+- [phone-input](https://inputcn.dev/r/phone-input.json): Country selector with search, live per-country formatting, E.164 output, `countries` and `mobileOnly` constraints. Emits `string`.
+- [currency-input](https://inputcn.dev/r/currency-input.json): Integer minor units so no float touches a price. Locale-correct, zero-decimal currencies handled, layouts `inline` / `display` / `stepper`. Emits `number`.
+- [masked-input](https://inputcn.dev/r/masked-input.json): Template masking with true caret preservation. Tokens `#` digit, `A` letter, `*` alphanumeric. Emits the raw unmasked `string`.
+- [inputcn-base](https://inputcn.dev/r/inputcn-base.json): The stylesheet. Required once by every component.
+- [registry index](https://inputcn.dev/r/index.json): Machine-readable list of every item.
+
+## Props every component accepts
+
+- `value` / `defaultValue` / `onChange(value)` — canonical value, not a DOM event
+- `onBlur()` — fires when focus leaves the whole component, not between its parts
+- `name` — applied to a hidden input so `FormData.get(name)` returns the canonical value
+- `required` / `validate` / `messages` / `showError` — validation, see below
+- `variant` — `outline` (default) / `filled` / `underline` / `elevated`
+- `size` — `sm` / `default` (32px) / `lg`
+- `disabled`, `readOnly`, `aria-invalid`, `aria-describedby`, `aria-label`
+
+## Validation without a schema
+
+```tsx
+<PhoneInput   required mobileOnly countries={["US", "CA"]} />
+<CurrencyInput required positive max={100000} />
+<MaskedInput  mask="###.###.###-##" complete />
+```
+
+Errors stay silent until the first blur, then clear live the moment the value
+becomes valid. Pass `required="Custom message"` or `messages={{ max: "..." }}`
+to override copy.
+
+## With react-hook-form and Zod
+
+Each package exports a matching schema from a separate entry point, so the
+validator cannot drift from the component and Zod stays out of the bundle for
+anyone who does not import it.
+
+```tsx
+import { PhoneInput } from "@inputcn/phone"
+import { phoneSchema } from "@inputcn/phone/schema"
+
+const schema = z.object({ phone: phoneSchema({ country: "US" }) })
+
+<FormField control={form.control} name="phone" render={({ field }) => (
+  <FormControl><PhoneInput {...field} /></FormControl>
+)} />
+```
+
+`{...field}` works with no adapter and no `onChange={e => field.onChange(e.target.value)}`
+bridging. If glue is required, that is a bug.
+
+## Optional
+
+- [Theming](https://inputcn.dev/docs/theming): every colour and radius reads a shadcn CSS variable; nothing is hardcoded.
+- [Accessibility](https://inputcn.dev/docs/accessibility): keyboard map and screen-reader notes.
+- [GitHub](https://github.com/inputcn/inputcn): source, issues, changelog.
+
+## Not included, deliberately
+
+- **OTP input** — use [input-otp](https://github.com/guilhermerodz/input-otp); it already powers shadcn/ui's own component.
+- **A form library** — use react-hook-form. Single-field validation is in scope; submission, dirty tracking and cross-field rules are not.
+- **Anything requiring a network call** — no address autocomplete, no phone verification, no AI. Zero runtime services is a deliberate constraint.

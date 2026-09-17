@@ -1,0 +1,4 @@
+{
+  "$comment": "The one place the public URL lives. Change it with `pnpm site-url <url>`, never by hand — that script also rewrites the URLs baked into README.md and public/llms.txt and rebuilds the registry.",
+  "siteUrl": "https://inputcn.dev"
+}

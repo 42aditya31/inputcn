@@ -1,0 +1,92 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@inputcn/core": [
+        "./packages/core/src/index.ts"
+      ],
+      "@inputcn/core/*": [
+        "./packages/core/src/*"
+      ],
+      "@inputcn/phone": [
+        "./packages/phone/src/index.ts"
+      ],
+      "@inputcn/phone/*": [
+        "./packages/phone/src/*"
+      ],
+      "@inputcn/currency": [
+        "./packages/currency/src/index.ts"
+      ],
+      "@inputcn/currency/*": [
+        "./packages/currency/src/*"
+      ],
+      "@inputcn/masked": [
+        "./packages/masked/src/index.ts"
+      ],
+      "@inputcn/masked/*": [
+        "./packages/masked/src/*"
+      ],
+      "@inputcn/percent": [
+        "./packages/percent/src/index.ts"
+      ],
+      "@inputcn/percent/*": [
+        "./packages/percent/src/*"
+      ],
+      "@inputcn/card": [
+        "./packages/card/src/index.ts"
+      ],
+      "@inputcn/card/*": [
+        "./packages/card/src/*"
+      ],
+      "@inputcn/duration": [
+        "./packages/duration/src/index.ts"
+      ],
+      "@inputcn/duration/*": [
+        "./packages/duration/src/*"
+      ],
+      "@inputcn/color": [
+        "./packages/color/src/index.ts"
+      ],
+      "@inputcn/color/*": [
+        "./packages/color/src/*"
+      ],
+      "@inputcn/cron": [
+        "./packages/cron/src/index.ts"
+      ],
+      "@inputcn/cron/*": [
+        "./packages/cron/src/*"
+      ],
+      "@inputcn/filesize": [
+        "./packages/filesize/src/index.ts"
+      ],
+      "@inputcn/filesize/*": [
+        "./packages/filesize/src/*"
+      ],
+      "@inputcn/ip": [
+        "./packages/ip/src/index.ts"
+      ],
+      "@inputcn/ip/*": [
+        "./packages/ip/src/*"
+      ],
+      "@inputcn/mention": [
+        "./packages/mention/src/index.ts"
+      ],
+      "@inputcn/mention/*": [
+        "./packages/mention/src/*"
+      ],
+      "@inputcn/testing": [
+        "./packages/testing/src/index.ts"
+      ],
+      "@inputcn/testing/*": [
+        "./packages/testing/src/*"
+      ]
+    }
+  },
+  "include": [
+    "packages/*/src/**/*",
+    "packages/*/test/**/*",
+    "vitest.config.ts",
+    "vitest.setup.ts"
+  ]
+}

@@ -1,0 +1,1375 @@
+/**
+ * inputcn — stylesheet
+ *
+ * Plain CSS on purpose, not Tailwind utilities. Two reasons:
+ *   1. It survives npm distribution. A consumer's Tailwind `content` globs do
+ *      not scan node_modules, so utility classes shipped in a package silently
+ *      render unstyled. One stylesheet always works.
+ *   2. It works in non-Tailwind projects too, which roughly doubles the
+ *      addressable audience for free.
+ *
+ * Every colour and radius comes from a shadcn/ui CSS variable. Nothing here is
+ * hardcoded, so changing --primary or --radius in the host app restyles every
+ * field with no code change. That is the product's central claim, and this
+ * file is where it is either true or not.
+ *
+ * Fallbacks are supplied for every token so the components are still legible
+ * in a project that has not set up shadcn/ui.
+ */
+
+.inputcn-field {
+  /* ---- resolved from the host's shadcn tokens ---- */
+  --_bg: var(--background, #fff);
+  --_fg: var(--foreground, oklch(0.18 0.005 264));
+  --_card: var(--card, var(--background, #fff));
+  --_popover: var(--popover, var(--background, #fff));
+  --_popover-fg: var(--popover-foreground, var(--foreground, oklch(0.18 0.005 264)));
+  --_muted: var(--muted, oklch(0.974 0.002 264));
+  --_muted-fg: var(--muted-foreground, oklch(0.556 0.012 264));
+  --_accent: var(--accent, oklch(0.964 0.004 264));
+  --_accent-fg: var(--accent-foreground, var(--foreground, oklch(0.21 0.006 264)));
+  --_secondary: var(--secondary, oklch(0.972 0.002 264));
+  --_secondary-fg: var(--secondary-foreground, oklch(0.28 0.006 264));
+  --_border: var(--border, oklch(0.923 0.004 264));
+  --_input: var(--input, oklch(0.906 0.005 264));
+  --_ring: var(--ring, oklch(0.62 0.018 264));
+  --_destructive: var(--destructive, oklch(0.585 0.208 26));
+  --_radius: var(--radius, 8px);
+
+  /* ---- derived ---- */
+  --_r-sm: calc(var(--_radius) - 3px);
+  --_r-md: calc(var(--_radius) - 1px);
+  --_r-lg: var(--_radius);
+
+  /* ---- density: three variables drive the whole size axis ---- */
+  --_h: 32px;
+  --_fs: 13px;
+  --_pad: 10px;
+
+  --_field-bg: var(--_bg);
+  --_lift: 0 1px 2px -1px oklch(0.2 0.02 264 / 0.09);
+  --_lift-pop: 0 10px 30px -10px oklch(0.2 0.02 264 / 0.22),
+    0 2px 8px -3px oklch(0.2 0.02 264 / 0.1);
+  --_edge: inset 0 0 0 0 transparent;
+  --_ring-w: 2.5px;
+  --_ring-a: 17%;
+
+  display: block;
+  color: var(--_fg);
+  font-size: var(--_fs);
+  line-height: 1.5;
+  letter-spacing: -0.003em;
+  text-align: start;
+}
+
+.inputcn-field *,
+.inputcn-field *::before,
+.inputcn-field *::after {
+  box-sizing: border-box;
+}
+
+/* In dark mode the drop shadow reads as grime; an inset top highlight is what
+   actually makes a surface look lit. */
+.dark .inputcn-field,
+[data-theme="dark"] .inputcn-field {
+  --_field-bg: oklch(1 0 0 / 3.4%);
+  --_lift: none;
+  --_edge: inset 0 1px 0 0 oklch(1 0 0 / 4.5%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme="light"]) .inputcn-field {
+    --_field-bg: oklch(1 0 0 / 3.4%);
+    --_lift: none;
+    --_edge: inset 0 1px 0 0 oklch(1 0 0 / 4.5%);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Density
+ * ------------------------------------------------------------------ */
+
+.inputcn-field[data-size="sm"] {
+  --_h: 28px;
+  --_fs: 12.5px;
+  --_pad: 9px;
+  --_radius: calc(var(--radius, 8px) - 1px);
+}
+
+.inputcn-field[data-size="lg"] {
+  --_h: 38px;
+  --_fs: 14px;
+  --_pad: 13px;
+  --_radius: calc(var(--radius, 8px) + 1px);
+}
+
+.inputcn-field[data-size="sm"] .inputcn-label {
+  font-size: 11.5px;
+  margin-bottom: 5px;
+}
+
+.inputcn-field[data-size="lg"] .inputcn-label {
+  font-size: 12.5px;
+  margin-bottom: 7px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Label, hint, error
+ * ------------------------------------------------------------------ */
+
+.inputcn-label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.002em;
+  color: var(--_fg);
+  user-select: none;
+}
+
+.inputcn-hint,
+.inputcn-error,
+.inputcn-warning {
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.inputcn-hint {
+  color: var(--_muted-fg);
+}
+
+.inputcn-error {
+  color: var(--_destructive);
+}
+
+.inputcn-warning {
+  color: var(--_muted-fg);
+}
+
+/* ------------------------------------------------------------------ *
+ * Field surfaces
+ * ------------------------------------------------------------------ */
+
+.inputcn-input,
+.inputcn-group,
+.inputcn-display,
+.inputcn-tagfield,
+.inputcn-textarea {
+  width: 100%;
+  border: 1px solid var(--_input);
+  border-radius: var(--_r-md);
+  background: var(--_field-bg);
+  box-shadow: var(--_lift), var(--_edge);
+  transition:
+    border-color 0.13s ease,
+    box-shadow 0.13s ease,
+    background 0.13s ease;
+}
+
+.inputcn-input {
+  display: flex;
+  height: var(--_h);
+  min-width: 0;
+  padding: 0 var(--_pad);
+  font: inherit;
+  font-size: var(--_fs);
+  color: var(--_fg);
+  outline: none;
+}
+
+.inputcn-input::placeholder,
+.inputcn-bare::placeholder,
+.inputcn-tagfield input::placeholder,
+.inputcn-textarea::placeholder {
+  color: var(--_muted-fg);
+  opacity: 1;
+}
+
+/* Hover only when it can lead somewhere. */
+.inputcn-input:hover:not(:focus):not(:disabled):not([readonly]),
+.inputcn-group:hover:not(:focus-within),
+.inputcn-tagfield:hover:not(:focus-within) {
+  border-color: color-mix(in oklab, var(--_input) 55%, var(--_fg) 12%);
+}
+
+.inputcn-input:focus,
+.inputcn-input:focus-visible,
+.inputcn-group:focus-within,
+.inputcn-display:focus-within,
+.inputcn-tagfield:focus-within,
+.inputcn-textarea:focus {
+  border-color: var(--_ring);
+  box-shadow:
+    var(--_edge),
+    0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+  outline: none;
+}
+
+.inputcn-input:disabled,
+.inputcn-field[data-disabled] .inputcn-group,
+.inputcn-field[data-disabled] .inputcn-display,
+.inputcn-field[data-disabled] .inputcn-tagfield {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.inputcn-input[readonly] {
+  background: var(--_muted);
+  color: var(--_muted-fg);
+  cursor: default;
+}
+
+/* Invalid styling is driven by the host via aria-invalid / data-invalid.
+   The component never decides on its own that it is in error. */
+.inputcn-input[aria-invalid="true"],
+.inputcn-group[data-invalid="true"],
+.inputcn-display[data-invalid="true"],
+.inputcn-tagfield[data-invalid="true"] {
+  border-color: var(--_destructive);
+}
+
+.inputcn-input[aria-invalid="true"]:focus,
+.inputcn-group[data-invalid="true"]:focus-within,
+.inputcn-display[data-invalid="true"]:focus-within {
+  box-shadow:
+    var(--_edge),
+    0 0 0 var(--_ring-w) color-mix(in oklab, var(--_destructive) 15%, transparent);
+}
+
+/* ------------------------------------------------------------------ *
+ * Group — the group owns the padding, children sit flush inside it.
+ * This is what keeps affixes as inline text rather than grey blocks.
+ * ------------------------------------------------------------------ */
+
+.inputcn-group {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: var(--_h);
+  padding: 0 var(--_pad);
+}
+
+.inputcn-bare {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  font-size: var(--_fs);
+  color: var(--_fg);
+}
+
+.inputcn-bare:disabled {
+  cursor: not-allowed;
+}
+
+.inputcn-affix {
+  display: flex;
+  align-items: center;
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: var(--_fs);
+  color: var(--_muted-fg);
+  letter-spacing: -0.002em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.inputcn-affix-right {
+  margin-left: auto;
+}
+
+.inputcn-affix select {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.012em;
+  color: var(--_muted-fg);
+  outline: none;
+  cursor: pointer;
+}
+
+.inputcn-affix select:hover {
+  color: var(--_fg);
+}
+
+.inputcn-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 7px 0;
+  flex: none;
+  background: var(--_border);
+}
+
+.inputcn-relative {
+  position: relative;
+}
+
+/* ------------------------------------------------------------------ *
+ * Country trigger
+ * ------------------------------------------------------------------ */
+
+.inputcn-country {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  height: 24px;
+  margin-left: -7px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--_r-sm);
+  background: transparent;
+  color: var(--_fg);
+  font: inherit;
+  font-size: var(--_fs);
+  cursor: pointer;
+  outline: none;
+  transition: background 0.12s ease;
+}
+
+.inputcn-field[data-size="sm"] .inputcn-country { height: 21px; }
+.inputcn-field[data-size="lg"] .inputcn-country { height: 28px; }
+
+.inputcn-country:hover:not(:disabled) {
+  background: var(--_accent);
+}
+
+.inputcn-country:disabled {
+  cursor: not-allowed;
+}
+
+.inputcn-country:focus-visible {
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--_ring) 40%, transparent);
+}
+
+/* ISO chips rather than flag emoji: Windows ships no glyphs for regional
+   indicator pairs, so a flag degrades to two bare letters there. */
+.inputcn-iso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 23px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 4px;
+  background: var(--_secondary);
+  color: var(--_secondary-fg);
+  font-size: 9.5px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: 0.055em;
+  font-variant-numeric: tabular-nums;
+}
+
+.inputcn-dial {
+  color: var(--_muted-fg);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.012em;
+}
+
+.inputcn-caret {
+  width: 11px;
+  height: 11px;
+  margin-left: -2px;
+  flex: none;
+  opacity: 0.4;
+}
+
+/* ------------------------------------------------------------------ *
+ * Popover
+ * ------------------------------------------------------------------ */
+
+.inputcn-popover {
+  position: absolute;
+  z-index: 50;
+  margin-top: 6px;
+  width: 248px;
+  max-height: 264px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--_border);
+  border-radius: var(--_r-lg);
+  background: var(--_popover);
+  color: var(--_popover-fg);
+  box-shadow: var(--_lift-pop);
+  animation: inputcn-pop 0.12s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+@keyframes inputcn-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inputcn-popover {
+    animation: none;
+  }
+  .inputcn-input,
+  .inputcn-group,
+  .inputcn-country,
+  .inputcn-stepbtn {
+    transition: none;
+  }
+}
+
+.inputcn-popover-search {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--_border);
+}
+
+.inputcn-popover-search input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--_fg);
+}
+
+.inputcn-popover-list {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  scrollbar-width: thin;
+}
+
+.inputcn-popover-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 28px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: var(--_r-sm);
+  background: transparent;
+  color: var(--_fg);
+  font: inherit;
+  font-size: 12.5px;
+  text-align: start;
+  cursor: pointer;
+  outline: none;
+}
+
+.inputcn-popover-item:hover,
+.inputcn-popover-item[data-active="true"] {
+  background: var(--_accent);
+  color: var(--_accent-fg);
+}
+
+.inputcn-popover-item .inputcn-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inputcn-popover-empty {
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--_muted-fg);
+  list-style: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * Paste notice — a side effect must be visible and undoable
+ * ------------------------------------------------------------------ */
+
+.inputcn-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 0;
+  padding: 5px 8px;
+  border-radius: var(--_r-sm);
+  background: var(--_muted);
+  font-size: 11.5px;
+  color: var(--_muted-fg);
+}
+
+.inputcn-undo,
+.inputcn-dismiss {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 11.5px;
+  color: var(--_fg);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.inputcn-dismiss {
+  margin-left: auto;
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--_muted-fg);
+}
+
+.inputcn-dismiss:hover {
+  color: var(--_fg);
+}
+
+.inputcn-undo:focus-visible,
+.inputcn-dismiss:focus-visible {
+  outline: none;
+  border-radius: var(--_r-sm);
+  box-shadow: 0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+}
+
+/* ------------------------------------------------------------------ *
+ * Currency layouts
+ * ------------------------------------------------------------------ */
+
+.inputcn-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 12px 14px;
+  border-radius: var(--_r-lg);
+  cursor: text;
+}
+
+.inputcn-display-symbol {
+  align-self: flex-start;
+  margin-top: 5px;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--_muted-fg);
+}
+
+.inputcn-display-input {
+  width: 100%;
+  max-width: 230px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-align: center;
+  color: var(--_fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.inputcn-display-code {
+  align-self: flex-end;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--_muted-fg);
+}
+
+.inputcn-stepper {
+  display: flex;
+  align-items: center;
+}
+
+.inputcn-stepper .inputcn-group {
+  flex: 1;
+  border-radius: 0;
+}
+
+.inputcn-stepbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--_h);
+  height: var(--_h);
+  padding: 0;
+  border: 1px solid var(--_input);
+  background: var(--_field-bg);
+  color: var(--_muted-fg);
+  box-shadow: var(--_lift), var(--_edge);
+  cursor: pointer;
+  transition: 0.12s ease;
+}
+
+.inputcn-stepbtn:hover:not(:disabled) {
+  background: var(--_accent);
+  color: var(--_fg);
+}
+
+.inputcn-stepbtn:active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+
+.inputcn-stepbtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Every other interactive part of a field rings itself rather than leaving it
+   to the UA default. These three were the exceptions, which meant a host page
+   with its own :focus-visible rule was the only thing making them visible. */
+.inputcn-stepbtn:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--_lift),
+    var(--_edge),
+    0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+}
+
+.inputcn-stepbtn:first-child {
+  border-right: 0;
+  border-radius: var(--_r-md) 0 0 var(--_r-md);
+}
+
+.inputcn-stepbtn:last-child {
+  border-left: 0;
+  border-radius: 0 var(--_r-md) var(--_r-md) 0;
+}
+
+.inputcn-stepbtn svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Tags
+ * ------------------------------------------------------------------ */
+
+.inputcn-tagfield {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  min-height: var(--_h);
+  padding: 4px 5px;
+}
+
+.inputcn-tagfield input {
+  flex: 1;
+  min-width: 82px;
+  height: 21px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  font-size: var(--_fs);
+  color: var(--_fg);
+}
+
+.inputcn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 21px;
+  padding: 0 5px 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--_r-sm);
+  background: var(--_secondary);
+  color: var(--_secondary-fg);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.002em;
+}
+
+.inputcn-badge button {
+  display: flex;
+  padding: 0 1px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  line-height: 0;
+  color: var(--_muted-fg);
+  cursor: pointer;
+}
+
+.inputcn-badge button:hover {
+  color: var(--_fg);
+}
+
+/* ------------------------------------------------------------------ *
+ * Textarea
+ * ------------------------------------------------------------------ */
+
+.inputcn-textarea {
+  min-height: 70px;
+  padding: 8px var(--_pad);
+  font: inherit;
+  font-size: var(--_fs);
+  line-height: 1.55;
+  color: var(--_fg);
+  outline: none;
+  resize: vertical;
+}
+
+/* ================================================================== *
+ * VARIANTS — surface treatment. Orthogonal to size and to layout.
+ * ================================================================== */
+
+/* ---- filled: muted surface, borderless at rest ---- */
+
+.inputcn-field[data-variant="filled"] .inputcn-input,
+.inputcn-field[data-variant="filled"] .inputcn-group,
+.inputcn-field[data-variant="filled"] .inputcn-display,
+.inputcn-field[data-variant="filled"] .inputcn-tagfield,
+.inputcn-field[data-variant="filled"] .inputcn-textarea {
+  background: var(--_muted);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.inputcn-field[data-variant="filled"] .inputcn-input:hover:not(:focus):not(:disabled),
+.inputcn-field[data-variant="filled"] .inputcn-group:hover:not(:focus-within),
+.inputcn-field[data-variant="filled"] .inputcn-tagfield:hover:not(:focus-within) {
+  background: var(--_accent);
+  border-color: transparent;
+}
+
+.inputcn-field[data-variant="filled"] .inputcn-input:focus,
+.inputcn-field[data-variant="filled"] .inputcn-group:focus-within,
+.inputcn-field[data-variant="filled"] .inputcn-display:focus-within,
+.inputcn-field[data-variant="filled"] .inputcn-tagfield:focus-within,
+.inputcn-field[data-variant="filled"] .inputcn-textarea:focus {
+  background: var(--_field-bg);
+  border-color: var(--_ring);
+}
+
+.inputcn-field[data-variant="filled"] .inputcn-divider {
+  background: color-mix(in oklab, var(--_fg) 12%, transparent);
+}
+
+.inputcn-field[data-variant="filled"] .inputcn-stepbtn {
+  background: var(--_muted);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* ---- underline: one rule, nothing else ---- */
+
+.inputcn-field[data-variant="underline"] .inputcn-input,
+.inputcn-field[data-variant="underline"] .inputcn-group,
+.inputcn-field[data-variant="underline"] .inputcn-tagfield,
+.inputcn-field[data-variant="underline"] .inputcn-textarea {
+  background: transparent;
+  border-color: transparent;
+  border-bottom-color: var(--_input);
+  border-radius: 0;
+  box-shadow: none;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.inputcn-field[data-variant="underline"] .inputcn-input:hover:not(:focus):not(:disabled),
+.inputcn-field[data-variant="underline"] .inputcn-group:hover:not(:focus-within),
+.inputcn-field[data-variant="underline"] .inputcn-tagfield:hover:not(:focus-within) {
+  border-color: transparent;
+  border-bottom-color: color-mix(in oklab, var(--_fg) 32%, transparent);
+}
+
+.inputcn-field[data-variant="underline"] .inputcn-input:focus,
+.inputcn-field[data-variant="underline"] .inputcn-group:focus-within,
+.inputcn-field[data-variant="underline"] .inputcn-tagfield:focus-within,
+.inputcn-field[data-variant="underline"] .inputcn-textarea:focus {
+  border-color: transparent;
+  border-bottom-color: var(--_ring);
+  box-shadow: 0 1px 0 0 var(--_ring);
+}
+
+.inputcn-field[data-variant="underline"] .inputcn-input[aria-invalid="true"],
+.inputcn-field[data-variant="underline"] .inputcn-group[data-invalid="true"] {
+  border-color: transparent;
+  border-bottom-color: var(--_destructive);
+}
+
+.inputcn-field[data-variant="underline"] .inputcn-divider {
+  display: none;
+}
+
+.inputcn-field[data-variant="underline"] .inputcn-country {
+  margin-left: -4px;
+}
+
+/* ---- elevated: no border, real lift ---- */
+
+.inputcn-field[data-variant="elevated"] .inputcn-input,
+.inputcn-field[data-variant="elevated"] .inputcn-group,
+.inputcn-field[data-variant="elevated"] .inputcn-display,
+.inputcn-field[data-variant="elevated"] .inputcn-tagfield,
+.inputcn-field[data-variant="elevated"] .inputcn-textarea {
+  background: var(--_card);
+  border-color: transparent;
+  box-shadow:
+    0 1px 2px -1px oklch(0.2 0.02 264 / 0.14),
+    0 2px 6px -3px oklch(0.2 0.02 264 / 0.12),
+    inset 0 0 0 1px oklch(0.2 0.02 264 / 0.05);
+}
+
+.dark .inputcn-field[data-variant="elevated"] .inputcn-input,
+.dark .inputcn-field[data-variant="elevated"] .inputcn-group,
+.dark .inputcn-field[data-variant="elevated"] .inputcn-display,
+.dark .inputcn-field[data-variant="elevated"] .inputcn-tagfield,
+[data-theme="dark"] .inputcn-field[data-variant="elevated"] .inputcn-group {
+  box-shadow:
+    0 1px 2px -1px oklch(0 0 0 / 0.5),
+    0 2px 8px -4px oklch(0 0 0 / 0.45),
+    inset 0 0 0 1px oklch(1 0 0 / 7%),
+    inset 0 1px 0 0 oklch(1 0 0 / 6%);
+}
+
+.inputcn-field[data-variant="elevated"] .inputcn-input:focus,
+.inputcn-field[data-variant="elevated"] .inputcn-group:focus-within,
+.inputcn-field[data-variant="elevated"] .inputcn-display:focus-within,
+.inputcn-field[data-variant="elevated"] .inputcn-tagfield:focus-within,
+.inputcn-field[data-variant="elevated"] .inputcn-textarea:focus {
+  border-color: transparent;
+  box-shadow:
+    0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent),
+    inset 0 0 0 1px var(--_ring);
+}
+
+/* ------------------------------------------------------------------ *
+ * Forced colours / high contrast — never leave a field with no visible
+ * boundary just because a user overrode the palette.
+ * ------------------------------------------------------------------ */
+
+@media (forced-colors: active) {
+  .inputcn-input,
+  .inputcn-group,
+  .inputcn-display,
+  .inputcn-tagfield,
+  .inputcn-textarea,
+  .inputcn-stepbtn {
+    border: 1px solid ButtonBorder;
+  }
+
+  .inputcn-input:focus,
+  .inputcn-group:focus-within,
+  .inputcn-tagfield:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 1px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Numeric alignment — money and percentages read right-aligned, and
+ * tabular figures stop the value jittering as digits change width.
+ * ------------------------------------------------------------------ */
+
+.inputcn-numeric {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.012em;
+}
+
+/* ------------------------------------------------------------------ *
+ * Duration — segmented layout
+ * ------------------------------------------------------------------ */
+
+.inputcn-segfield {
+  display: flex;
+  align-items: center;
+  height: var(--_h);
+  padding: 0 4px;
+  border: 1px solid var(--_input);
+  border-radius: var(--_r-md);
+  background: var(--_field-bg);
+  box-shadow: var(--_lift), var(--_edge);
+  transition: border-color 0.13s ease, box-shadow 0.13s ease;
+}
+
+.inputcn-segfield:focus-within {
+  border-color: var(--_ring);
+  box-shadow:
+    var(--_edge),
+    0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+}
+
+.inputcn-segfield[data-invalid="true"] {
+  border-color: var(--_destructive);
+}
+
+.inputcn-seg {
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+  padding: 0 3px;
+}
+
+.inputcn-seg-input {
+  padding: 2px 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  font-size: var(--_fs);
+  color: var(--_fg);
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.inputcn-seg-input:focus {
+  background: var(--_accent);
+}
+
+.inputcn-seg-unit {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--_muted-fg);
+}
+
+.inputcn-seg-gap {
+  width: 1px;
+  height: 14px;
+  margin: 0 5px;
+  background: var(--_border);
+}
+
+/* ------------------------------------------------------------------ *
+ * Duration — presets
+ * ------------------------------------------------------------------ */
+
+.inputcn-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.inputcn-pill {
+  height: 23px;
+  padding: 0 9px;
+  border: 1px solid var(--_border);
+  border-radius: var(--_r-sm);
+  background: transparent;
+  color: var(--_muted-fg);
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: -0.002em;
+  cursor: pointer;
+  outline: none;
+  transition: 0.12s ease;
+}
+
+.inputcn-pill:hover:not(:disabled) {
+  background: var(--_accent);
+  color: var(--_fg);
+  border-color: var(--_input);
+}
+
+.inputcn-pill[aria-pressed="true"] {
+  background: var(--primary, var(--_fg));
+  color: var(--primary-foreground, var(--_bg));
+  border-color: transparent;
+}
+
+.inputcn-pill:focus-visible {
+  box-shadow: 0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+}
+
+.inputcn-pill:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------------ *
+ * Card
+ * ------------------------------------------------------------------ */
+
+.inputcn-brand {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--_muted-fg);
+  white-space: nowrap;
+}
+
+.inputcn-cc-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  margin-top: 11px;
+}
+
+.inputcn-cc-single {
+  display: flex;
+  align-items: center;
+  height: var(--_h);
+  padding: 0 var(--_pad);
+  border: 1px solid var(--_input);
+  border-radius: var(--_r-md);
+  background: var(--_field-bg);
+  box-shadow: var(--_lift), var(--_edge);
+  transition: border-color 0.13s ease, box-shadow 0.13s ease;
+}
+
+.inputcn-cc-single:focus-within {
+  border-color: var(--_ring);
+  box-shadow:
+    var(--_edge),
+    0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+}
+
+.inputcn-cc-single[data-invalid="true"] {
+  border-color: var(--_destructive);
+}
+
+.inputcn-cc-single input {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  font-size: var(--_fs);
+  color: var(--_fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.inputcn-cc-number { flex: 1; min-width: 0; }
+.inputcn-cc-exp { width: 62px; text-align: end; }
+.inputcn-cc-cvc { width: 42px; text-align: end; }
+
+.inputcn-cc-rule {
+  width: 1px;
+  height: 15px;
+  margin: 0 9px;
+  flex: none;
+  background: var(--_border);
+}
+
+/* ------------------------------------------------------------------ *
+ * Colour
+ * ------------------------------------------------------------------ */
+
+.inputcn-colorwell {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border-radius: 5px;
+  border: 1px solid oklch(0 0 0 / 10%);
+}
+
+.inputcn-colorwell[data-empty] {
+  /* A checkerboard reads as "nothing chosen" without needing a label. */
+  background-image:
+    linear-gradient(45deg, var(--_muted) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--_muted) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--_muted) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--_muted) 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+}
+
+.inputcn-native-color {
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.inputcn-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.inputcn-swatch {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid oklch(0 0 0 / 10%);
+  border-radius: var(--_r-sm);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.inputcn-swatch:hover:not(:disabled) { transform: scale(1.12); }
+.inputcn-swatch:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.inputcn-swatch[aria-pressed="true"],
+.inputcn-swatch:focus-visible {
+  box-shadow: 0 0 0 1.5px var(--_bg), 0 0 0 3px var(--_ring);
+}
+
+.inputcn-contrast {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin: 8px 0 0;
+  font-size: 11.5px;
+  color: var(--_muted-fg);
+}
+
+.inputcn-contrast-ratio {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  color: var(--_fg);
+}
+
+/* Contrast grading is the one place a semantic colour is warranted, because
+   the reading itself is the information. */
+.inputcn-contrast[data-level="fail"] .inputcn-contrast-ratio { color: var(--_destructive); }
+.inputcn-contrast[data-level="AA-large"] .inputcn-contrast-ratio { color: var(--_muted-fg); }
+
+/* ------------------------------------------------------------------ *
+ * Shared: select, mono, tag
+ * ------------------------------------------------------------------ */
+
+.inputcn-mono {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.012em;
+}
+
+.inputcn-select {
+  height: var(--_h);
+  padding: 0 var(--_pad);
+  border: 1px solid var(--_input);
+  border-radius: var(--_r-md);
+  background: var(--_field-bg);
+  box-shadow: var(--_lift), var(--_edge);
+  font: inherit;
+  font-size: var(--_fs);
+  color: var(--_fg);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.13s ease, box-shadow 0.13s ease;
+}
+
+.inputcn-select:focus-visible {
+  border-color: var(--_ring);
+  box-shadow:
+    var(--_edge),
+    0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+}
+
+.inputcn-select:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.inputcn-tag {
+  padding: 1px 6px;
+  border-radius: 20px;
+  background: var(--_secondary);
+  color: var(--_secondary-fg);
+  font-size: 9.5px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ *
+ * Cron
+ * ------------------------------------------------------------------ */
+
+.inputcn-cron-builder { display: flex; flex-direction: column; gap: 10px; }
+
+.inputcn-cron-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.inputcn-cron-time { width: 112px; }
+.inputcn-cron-dom { width: 70px; }
+
+.inputcn-daysrow { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.inputcn-day {
+  width: 30px;
+  height: 27px;
+  padding: 0;
+  border: 1px solid var(--_border);
+  border-radius: var(--_r-sm);
+  background: transparent;
+  color: var(--_muted-fg);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: 0.12s ease;
+}
+
+.inputcn-day:hover:not(:disabled) { background: var(--_accent); color: var(--_fg); }
+.inputcn-day:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.inputcn-day[aria-pressed="true"] {
+  background: var(--primary, var(--_fg));
+  color: var(--primary-foreground, var(--_bg));
+  border-color: transparent;
+}
+
+.inputcn-day:focus-visible {
+  box-shadow: 0 0 0 var(--_ring-w) color-mix(in oklab, var(--_ring) var(--_ring-a), transparent);
+}
+
+.inputcn-exprbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  border: 1px solid var(--_border);
+  border-radius: var(--_r-md);
+  background: var(--_muted);
+}
+
+.inputcn-exprbar-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--_muted-fg);
+}
+
+.inputcn-exprbar code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 12.5px;
+  color: var(--_fg);
+}
+
+.inputcn-cron-reads {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  color: var(--_fg);
+}
+
+.inputcn-cron-reads[data-invalid="true"] { color: var(--_destructive); }
+
+.inputcn-cron-next {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-top: 7px;
+  font-size: 11px;
+  color: var(--_muted-fg);
+}
+
+.inputcn-cron-next-label {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 9.5px;
+}
+
+.inputcn-cron-next-item { font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------------ *
+ * IP
+ * ------------------------------------------------------------------ */
+
+.inputcn-iprange {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 8px 0 0;
+  font-size: 11.5px;
+  color: var(--_muted-fg);
+}
+
+/* ------------------------------------------------------------------ *
+ * Mention
+ * ------------------------------------------------------------------ */
+
+.inputcn-popover-item.inputcn-rich {
+  height: auto;
+  padding: 6px 7px;
+  align-items: center;
+}
+
+.inputcn-avatar {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--_secondary);
+  color: var(--_secondary-fg);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.inputcn-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+
+.inputcn-meta-name { font-size: 12.5px; font-weight: 500; line-height: 1.25; }
+
+.inputcn-meta-detail {
+  font-size: 10.5px;
+  line-height: 1.25;
+  color: var(--_muted-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inputcn-role {
+  flex: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--_muted);
+  color: var(--_muted-fg);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ *
+ * Screen-reader-only
+ *
+ * Visually hidden but still announced. `clip-path` rather than
+ * `display:none` or `visibility:hidden`, both of which remove the element
+ * from the accessibility tree entirely — the opposite of what is wanted.
+ * ------------------------------------------------------------------ */
+
+.inputcn-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,80 @@
+{
+  "name": "@inputcn/core",
+  "version": "0.1.0",
+  "description": "Shared engine for inputcn: caret-safe masking, validity rules, smart paste, dev warnings.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "styles"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./caret": {
+      "types": "./dist/caret.d.ts",
+      "import": "./dist/caret.js"
+    },
+    "./mask": {
+      "types": "./dist/mask.d.ts",
+      "import": "./dist/mask.js"
+    },
+    "./paste": {
+      "types": "./dist/paste.d.ts",
+      "import": "./dist/paste.js"
+    },
+    "./validity": {
+      "types": "./dist/validity.d.ts",
+      "import": "./dist/validity.js"
+    },
+    "./messages": {
+      "types": "./dist/messages.d.ts",
+      "import": "./dist/messages.js"
+    },
+    "./provider": {
+      "types": "./dist/provider.d.ts",
+      "import": "./dist/provider.js"
+    },
+    "./use-field": {
+      "types": "./dist/use-field.d.ts",
+      "import": "./dist/use-field.js"
+    },
+    "./use-masked-value": {
+      "types": "./dist/use-masked-value.d.ts",
+      "import": "./dist/use-masked-value.js"
+    },
+    "./use-latest": {
+      "types": "./dist/use-latest.d.ts",
+      "import": "./dist/use-latest.js"
+    },
+    "./warn": {
+      "types": "./dist/warn.d.ts",
+      "import": "./dist/warn.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js"
+    },
+    "./styles.css": "./styles/inputcn.css",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0"
+  },
+  "keywords": [
+    "react",
+    "input",
+    "mask",
+    "validation",
+    "shadcn",
+    "inputcn"
+  ]
+}

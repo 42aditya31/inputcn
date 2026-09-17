@@ -1,0 +1,19 @@
+# Normalise line endings in the repo to LF.
+#
+# Without this, a Windows checkout commits CRLF and every file shows as
+# modified the moment anyone on macOS or Linux clones it — which makes the
+# first community pull request an unreviewable diff.
+* text=auto eol=lf
+
+# Binary, never touched.
+*.png binary
+*.jpg binary
+*.woff binary
+*.woff2 binary
+*.ico binary
+
+# Generated. Collapsed in diffs so a review shows the source change, not the
+# 200-line regeneration that followed it.
+public/r/*.json linguist-generated=true
+apps/docs/src/content/props.generated.json linguist-generated=true
+pnpm-lock.yaml linguist-generated=true -diff

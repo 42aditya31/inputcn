@@ -1,0 +1,189 @@
+/**
+ * Docs site tokens.
+ *
+ * Dark is the design file, value for value. Light is derived from it — the
+ * same role for every token, inverted — because the design is dark-only and
+ * the site ships both.
+ *
+ * Tokens are named by ROLE, not by shade, so a rule reads the same in either
+ * theme: --line-2 is "the border on a card" in both, it is just a different
+ * colour.
+ */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #08080a;
+  --bg-alt: #09090b;
+  --card-a: #0e0e13;
+  --card-b: #0a0a0e;
+  --panel: #0c0c10;
+  --sunken: #0a0a0e;
+  --raised: #1a1a20;
+  --chip: #1d1d24;
+  --row-hover: #0d0d12;
+  --thead: #0e0e12;
+
+  /* hairlines, weakest to strongest */
+  --line: #16161b;
+  --line-2: #1c1c22;
+  --line-3: #1f1f26;
+  --line-4: #2a2a33;
+  --line-btn: #23232a;
+  --line-pop: #26262e;
+
+  --nav-bg: rgba(14, 14, 18, 0.72);
+  --nav-line: rgba(255, 255, 255, 0.08);
+  --nav-shadow: 0 18px 44px -28px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  --fg: #f4f4f5;
+  --fg-2: #e4e4e7;
+  --fg-3: #d4d4d8;
+  --fg-4: #c9c9d1;
+  --fg-5: #a1a1aa;
+  --fg-6: #9c9ca6;
+  --fg-7: #8b8b95;
+  --fg-8: #7a7a84;
+  --fg-9: #6b6b75;
+  --fg-10: #5d5d67;
+
+  --ac: #cdf25c;
+  --ac-fg: #0a0a0e;
+  /* Filled surfaces keep the signature lime in BOTH themes — the text on it is
+     dark either way. Only --ac, used as a text and line colour, has to move. */
+  --ac-solid: #cdf25c;
+  --ac-solid-fg: #14190a;
+  --ac-dim: color-mix(in oklab, #cdf25c 14%, transparent);
+  --ac-line: color-mix(in oklab, #cdf25c 28%, transparent);
+
+  /* The hero's second button is a solid slab: white on black in the design. */
+  --solid: #f4f4f5;
+  --solid-fg: #09090b;
+
+  --grid-line: rgba(255, 255, 255, 0.028);
+  --hero-fade: #08080a;
+  --title-a: #ffffff;
+  --title-b: #85858f;
+
+  --danger: #ff6b5c;
+  --ok: #6ee7a8;
+
+  --r-sm: 7px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-nav: 16px;
+  --r-pill: 999px;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #fbfbfa;
+  --bg-alt: #f5f5f4;
+  --card-a: #ffffff;
+  --card-b: #fbfbfb;
+  --panel: #ffffff;
+  --sunken: #f7f7f6;
+  --raised: #eeeeef;
+  --chip: #eeeeef;
+  --row-hover: #f7f7f6;
+  --thead: #f5f5f4;
+
+  --line: #ededec;
+  --line-2: #e7e7e6;
+  --line-3: #e2e2e1;
+  --line-4: #d6d6d9;
+  --line-btn: #dededd;
+  --line-pop: #d9d9d8;
+
+  --nav-bg: rgba(255, 255, 255, 0.76);
+  --nav-line: rgba(16, 16, 22, 0.1);
+  --nav-shadow: 0 18px 44px -30px rgba(16, 16, 24, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  --fg: #101014;
+  --fg-2: #1c1c21;
+  --fg-3: #2e2e35;
+  --fg-4: #3f3f47;
+  --fg-5: #52525b;
+  --fg-6: #5c5c66;
+  --fg-7: #6b6b75;
+  --fg-8: #7a7a84;
+  --fg-9: #8b8b95;
+  --fg-10: #9c9ca6;
+
+  /* #CDF25C on white is about 1.4:1 — invisible. This is the same hue pushed
+     down in lightness until it clears AA on the light surfaces. */
+  --ac: #4a6708;
+  --ac-fg: #ffffff;
+  --ac-solid: #cdf25c;
+  --ac-solid-fg: #14190a;
+  --ac-dim: color-mix(in oklab, #cdf25c 30%, transparent);
+  --ac-line: color-mix(in oklab, #4a6708 26%, transparent);
+
+  --solid: #101014;
+  --solid-fg: #fbfbfa;
+
+  --grid-line: rgba(16, 16, 24, 0.038);
+  --hero-fade: #fbfbfa;
+  --title-a: #0c0c10;
+  --title-b: #6e6e78;
+
+  --danger: #c4321f;
+  --ok: #0f7a45;
+}
+
+/* ------------------------------------------------------------------ *
+ * shadcn tokens the LIBRARY reads.
+ *
+ * The docs site is a consuming app, so it maps its own palette onto the
+ * contract the components expect. Nothing in the library knows about the
+ * lime; it only ever sees --primary and friends. The values are picked to
+ * land on the field treatment the design draws by hand: a 40px field, a
+ * #2a2a33 hairline, a 10px radius.
+ * ------------------------------------------------------------------ */
+
+:root,
+[data-theme="dark"] {
+  --background: #0a0a0e;
+  --foreground: #f4f4f5;
+  --card: #0e0e13;
+  --card-foreground: #f4f4f5;
+  --popover: #121217;
+  --popover-foreground: #f4f4f5;
+  --primary: #cdf25c;
+  --primary-foreground: #0a0a0e;
+  --secondary: #1a1a20;
+  --secondary-foreground: #d4d4d8;
+  --muted: #121217;
+  --muted-foreground: #8b8b95;
+  --accent: #1d1d24;
+  --accent-foreground: #f4f4f5;
+  --destructive: #ff6b5c;
+  --border: #1f1f26;
+  --input: #2a2a33;
+  --ring: #cdf25c;
+  --radius: 10px;
+}
+
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #101014;
+  --card: #ffffff;
+  --card-foreground: #101014;
+  --popover: #ffffff;
+  --popover-foreground: #101014;
+  --primary: #4a6708;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2f1;
+  --secondary-foreground: #3f3f47;
+  --muted: #f7f7f6;
+  --muted-foreground: #6b6b75;
+  --accent: #f0f0ef;
+  --accent-foreground: #101014;
+  --destructive: #c4321f;
+  --border: #e2e2e1;
+  --input: #d6d6d9;
+  --ring: #4a6708;
+  --radius: 10px;
+}
