@@ -679,3 +679,64 @@ footer { border-top: 1px solid var(--line); background: var(--bg-alt); }
   .block-stage { padding: 20px 12px; }
   .block-form { padding: 18px 16px; }
 }
+
+/* ================= star button ================= */
+
+.nav-btn.star {
+  gap: 6px;
+  border-color: var(--ac-line);
+  background: var(--ac-dim);
+  color: var(--fg-2);
+  padding: 0 11px;
+}
+.nav-btn.star:hover { border-color: var(--ac); color: var(--fg); }
+.nav-btn.star svg { width: 13px; height: 13px; color: var(--ac); }
+.nav-btn.star b {
+  font-family: "Geist Mono", monospace; font-size: 11px; font-weight: 500;
+  padding-left: 7px; margin-left: 1px;
+  border-left: 1px solid var(--ac-line); color: var(--fg-5);
+}
+
+/* ================= for agents ================= */
+
+.agent-grid {
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(244px, 1fr));
+}
+
+.agent-card {
+  display: flex; flex-direction: column; gap: 7px;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--card-a), var(--card-b));
+  color: inherit;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.agent-card:hover {
+  border-color: color-mix(in oklab, var(--ac-solid) 42%, var(--line-2));
+  transform: translateY(-2px);
+  color: inherit;
+}
+
+.agent-card .k {
+  font-family: "Geist Mono", monospace; font-size: 9px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ac);
+}
+.agent-card b {
+  font-size: 14.5px; font-weight: 600; letter-spacing: -.015em; color: var(--fg);
+}
+.agent-card b code {
+  font-family: "Geist Mono", monospace; font-size: 12.5px; font-weight: 400;
+  color: var(--fg); word-break: break-all;
+}
+.agent-card p { margin: 0; font-size: 12.8px; line-height: 1.55; color: var(--fg-7); }
+.agent-card i {
+  font-style: normal; margin-top: auto; padding-top: 6px;
+  font-size: 12.5px; color: var(--fg-5);
+}
+.agent-card:hover i { color: var(--ac); }
+
+@media (max-width: 860px) {
+  .nav-btn.star b { display: none; }
+  .agent-grid { grid-template-columns: 1fr; }
+}

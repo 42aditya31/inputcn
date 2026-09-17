@@ -1,5 +1,5 @@
 import { Link } from "../router.js"
-import { REPO_URL } from "../site.js"
+import { AUTHOR, REPO_URL } from "../site.js"
 
 export function Footer() {
   return (
@@ -14,7 +14,13 @@ export function Footer() {
         <a href={REPO_URL}>GitHub</a>
         <a href="/llms.txt">llms.txt</a>
         <span className="sp" />
-        <span className="fine">Not affiliated with or endorsed by shadcn.</span>
+        <span className="fine">
+          Built by{" "}
+          <a href={AUTHOR.url} target="_blank" rel="noreferrer noopener">
+            {AUTHOR.name}
+          </a>
+          . Not affiliated with or endorsed by shadcn.
+        </span>
       </div>
 
       <p className="foot-note">

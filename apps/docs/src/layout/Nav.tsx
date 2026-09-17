@@ -2,7 +2,8 @@ import { useState } from "react"
 
 import { Link, usePath } from "../router.js"
 import { REPO_URL } from "../site.js"
-import { Github, Menu, Moon, Sun } from "../ui.js"
+import { Github, Menu, Moon, Star, Sun } from "../ui.js"
+import { useStars } from "../use-stars.js"
 import { useTheme } from "../use-theme.js"
 
 const LINKS = [
@@ -27,6 +28,7 @@ export function Nav() {
   const path = usePath()
   const [theme, setTheme] = useTheme()
   const [open, setOpen] = useState(false)
+  const stars = useStars()
 
   const next = theme === "dark" ? "light" : "dark"
 
@@ -61,13 +63,29 @@ export function Nav() {
             </button>
 
             <a
-              className="nav-btn"
+              className="nav-btn icon"
               href={REPO_URL}
               target="_blank"
               rel="noreferrer noopener"
+              aria-label="GitHub repository"
+              title="GitHub repository"
             >
               <Github />
-              GitHub
+            </a>
+
+            {/* Straight to the repo's Star action. GitHub has no URL that
+                stars on your behalf — that would be a one-click CSRF — so this
+                is as close as it gets: the repo page, with Star in view. */}
+            <a
+              className="nav-btn star"
+              href={`${REPO_URL}#-star`}
+              target="_blank"
+              rel="noreferrer noopener"
+              title="Star inputcn on GitHub"
+            >
+              <Star />
+              <span>Star</span>
+              {stars !== null ? <b>{stars.toLocaleString("en-GB")}</b> : null}
             </a>
 
             <button

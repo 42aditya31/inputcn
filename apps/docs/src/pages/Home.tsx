@@ -1,7 +1,7 @@
 import { COMPONENTS } from "../content/components.js"
 import { CurrencyDemo, PercentDemo, PhoneDemo } from "../content/demos.js"
 import { Link } from "../router.js"
-import { installCmd } from "../site.js"
+import { installCmd, REPO_SLUG } from "../site.js"
 import { Code, CopyCmd, Table } from "../ui.js"
 
 const BADGES = ["MIT", "validation built in", "smart paste", "React 19", "zod 4", "0 runtime deps"]
@@ -212,10 +212,70 @@ export function Home() {
       </section>
 
       {/* ---------------------------------------------------------- */}
+      <section className="sec" id="agents">
+        <div className="sec-head">
+          <div>
+            <div className="eyebrow">02 — For agents</div>
+            <h2>Most people get here through an agent.</h2>
+          </div>
+          <div className="sp" />
+          <p>
+            So the library tells the agent what to do, rather than hoping it read the docs.
+            Agents are not bad at finding components — they are bad at value semantics.
+          </p>
+        </div>
+
+        <div className="agent-grid">
+          <Link className="agent-card" to="/blocks">
+            <div className="k">Blocks</div>
+            <b>Six whole forms</b>
+            <p>
+              Checkout, onboarding, scheduler. Live, with the source and a one-click prompt.
+            </p>
+            <i>Browse →</i>
+          </Link>
+
+          <Link className="agent-card" to="/components/phone-input">
+            <div className="k">Deep link</div>
+            <b>Open in Claude Code</b>
+            <p>
+              Every component page builds a prompt carrying the real props and the traps, then
+              opens your agent with it typed in.
+            </p>
+            <i>Try one →</i>
+          </Link>
+
+          <Link className="agent-card" to="/docs/mcp">
+            <div className="k">Skills &amp; MCP</div>
+            <b>
+              <code>npx skills add {REPO_SLUG}</code>
+            </b>
+            <p>
+              Three skills and an MCP server, so the agent looks up the real prop list instead
+              of inventing one.
+            </p>
+            <i>Set up →</i>
+          </Link>
+
+          <Link className="agent-card" to="/docs/form-spec">
+            <div className="k">Codegen</div>
+            <b>
+              <code>npx inputcn generate</code>
+            </b>
+            <p>
+              Ask the model for a 20-line spec, not for React. A prop that does not exist fails
+              instead of shipping.
+            </p>
+            <i>How it works →</i>
+          </Link>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------- */}
       <section className="sec" id="integration">
         <div className="sec-head">
           <div>
-            <div className="eyebrow">02 — Integration</div>
+            <div className="eyebrow">03 — Integration</div>
             <h2>Works with the form stack you already have.</h2>
           </div>
           <div className="sp" />
@@ -235,7 +295,7 @@ export function Home() {
       <section className="sec" id="contract">
         <div className="sec-head">
           <div>
-            <div className="eyebrow">03 — Form contract</div>
+            <div className="eyebrow">04 — Form contract</div>
             <h2>One canonical value per component.</h2>
           </div>
           <div className="sp" />
@@ -255,7 +315,7 @@ export function Home() {
       <section className="sec last" id="validation">
         <div className="sec-head">
           <div>
-            <div className="eyebrow">04 — Validation</div>
+            <div className="eyebrow">05 — Validation</div>
             <h2>Declare the rule as a prop.</h2>
           </div>
           <div className="sp" />

@@ -2,5 +2,10 @@
   "$comment": "The one place the public URLs live. Change the site with `pnpm site-url <url>`, which also rewrites the URLs baked into README.md, public/llms.txt and packages/core/src/warn.ts, and rebuilds the registry.",
   "siteUrl": "https://input-cn.vercel.app",
   "repoUrl": "https://github.com/42aditya31/inputcn",
-  "twitter": "@42aditya31"
+  "twitter": "@42aditya31",
+  "author": {
+    "name": "Aditya Sharma",
+    "handle": "42aditya31",
+    "url": "https://github.com/42aditya31"
+  }
 }
