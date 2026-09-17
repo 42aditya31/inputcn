@@ -1,0 +1,13 @@
+{
+  "name": "inputcn — the inputs shadcn/ui doesn't ship",
+  "short_name": "inputcn",
+  "description": "Eleven React input components: phone, currency, card, duration, cron, colour, file size, IP, percent, mask and mentions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08080a",
+  "theme_color": "#08080a",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/favicon.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }
+  ]
+}

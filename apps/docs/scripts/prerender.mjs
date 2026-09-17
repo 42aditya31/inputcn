@@ -64,16 +64,25 @@ function pngSize(path) {
 const og = hasPng ? pngSize(join(DIST, "og.png")) : null
 const ogSize = og ?? { width: 1200, height: 630, bytes: 0 }
 
+// The favicon is requested on literally every page view, so its weight is the
+// one asset size that is never amortised.
+const faviconPath = join(DIST, "favicon.png")
+const favicon = existsSync(faviconPath) ? pngSize(faviconPath) : null
+
 let written = 0
 
 for (const route of ROUTES) {
   const { html, head } = render(route.path, ogImage, ogSize.width, ogSize.height)
 
   const page = template
-    // Everything the build put in <head> stays; the route's tags are appended,
-    // and the static <title> from index.html is dropped so there is only one.
+    // Everything the build put in <head> stays — icons, manifest, theme-color.
+    // Only the fallback title and description are dropped, because the route
+    // supplies its own and two of either is worse than none.
+    //
+    // The attribute can sit on its own line in the source template, so the
+    // pattern cannot assume the tag is written on one line.
     .replace(/<title>[\s\S]*?<\/title>\s*/, "")
-    .replace(/<meta name="description"[^>]*>\s*/, "")
+    .replace(/<meta\s[^>]*name="description"[^>]*>\s*/, "")
     .replace("</head>", `  ${head}\n  </head>`)
     .replace('<div id="root"></div>', `<div id="root">${html}</div>`)
 
@@ -157,6 +166,18 @@ if (og && og.bytes > 1_000_000) {
     [
       `  ! public/og.png is ${(og.bytes / 1024 / 1024).toFixed(1)} MB. Under 300 KB is`,
       "    plenty at this size, and some scrapers give up on large images.",
+      "",
+    ].join("\n"),
+  )
+}
+
+if (favicon && favicon.bytes > 100_000) {
+  console.warn(
+    [
+      `  ! public/favicon.png is ${favicon.width}x${favicon.height} and`,
+      `    ${(favicon.bytes / 1024 / 1024).toFixed(1)} MB. It is only the fallback — icon.svg`,
+      "    is served to current browsers — but Safari still downloads it for the",
+      "    home-screen icon. A 180x180 export under 20 KB would be plenty.",
       "",
     ].join("\n"),
   )

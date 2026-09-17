@@ -4,11 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
+
+    <!-- Replaced per route by scripts/prerender.mjs; these are the fallbacks
+         that apply in dev and to any path the prerenderer did not write. -->
     <title>inputcn — the inputs shadcn/ui doesn't ship</title>
     <meta
       name="description"
-      content="Twelve hard inputs, one contract. Phone, currency, card, duration, cron, colour, file size, IP, percent, mask and mentions — copy-pasteable, accessible, and validated by props."
+      content="Eleven React input components shadcn/ui doesn't ship: phone, currency, card, duration, cron, colour, file size, IP, percent, mask and mentions."
     />
+
+    <!-- SVG first: every current browser prefers it, and it is a few hundred
+         bytes that stay sharp at any size. favicon.png is the fallback for
+         older browsers and for Safari's home-screen icon. -->
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#08080a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+
+    <link rel="preconnect" href="https://registry.npmjs.org" crossorigin />
+
     <script>
       // Applied before first paint so the page never flashes the wrong theme.
       try {
