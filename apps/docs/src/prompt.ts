@@ -233,3 +233,75 @@ export function vscodeLink(prompt: string): string {
 export function cursorLink(prompt: string): string {
   return `https://cursor.com/link/prompt?text=${encodeURIComponent(prompt)}`
 }
+
+/* ------------------------------------------------------------------ *
+ * Blocks
+ * ------------------------------------------------------------------ */
+
+export interface BlockPromptInput {
+  name: string
+  slug: string
+  wiring: string
+  uses: string[]
+  emits: [string, string][]
+  source: string
+}
+
+/**
+ * A block prompt is a different job from a component prompt.
+ *
+ * The agent is being handed a whole working form, so the reference
+ * implementation goes in verbatim. Asking a model to reconstruct a form from a
+ * description when a correct one already exists is strictly worse — it is the
+ * one situation where more freedom produces a worse result.
+ *
+ * What the prompt adds around the source is the part a model cannot infer by
+ * reading it: which value each field actually submits.
+ */
+export function buildBlockPrompt(block: BlockPromptInput): string {
+  const installs = block.uses
+    .map((u) => `  npx shadcn@latest add ${SITE_URL}/r/${u}.json`)
+    .join("\n")
+
+  const fields = block.emits.map(([name, what]) => `- ${name}: ${what}`).join("\n")
+
+  return [
+    `Add a ${block.name.toLowerCase()} form to this project using inputcn.`,
+
+    [
+      `Install the components it needs:`,
+      ``,
+      installs,
+      ``,
+      `Then import the stylesheet once in the app root:`,
+      ``,
+      `  import "@inputcn/core/styles.css"`,
+    ].join("\n"),
+
+    [
+      `THE ONE RULE`,
+      `Every inputcn component emits a canonical value, never the formatted`,
+      `string shown on screen. This form submits:`,
+      ``,
+      fields,
+    ].join("\n"),
+
+    `Wiring: ${block.wiring}.`,
+
+    [
+      `Below is the reference implementation, which is known to be correct.`,
+      `Adapt it to this project's conventions and file layout, but do not change`,
+      `the canonical values, the constraint props, or which schema validates`,
+      `which field.`,
+      ``,
+      "```tsx",
+      block.source.trim(),
+      "```",
+    ].join("\n"),
+
+    [
+      `Reference: ${SITE_URL}/blocks/${block.slug}`,
+      `Do not invent props. Every available prop is documented per component.`,
+    ].join("\n"),
+  ].join("\n\n")
+}

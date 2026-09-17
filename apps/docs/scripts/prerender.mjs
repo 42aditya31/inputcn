@@ -105,8 +105,8 @@ const today = new Date().toISOString().slice(0, 10)
 
 const priority = (path) => {
   if (path === "/") return "1.0"
-  if (path === "/components") return "0.9"
-  if (path.startsWith("/components/")) return "0.8"
+  if (path === "/components" || path === "/blocks") return "0.9"
+  if (path.startsWith("/components/") || path.startsWith("/blocks/")) return "0.8"
   return "0.7"
 }
 

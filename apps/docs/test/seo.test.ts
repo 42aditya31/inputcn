@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
 
+import { BLOCKS } from "../src/content/blocks.js"
 import { COMPONENTS } from "../src/content/components.js"
 import { GUIDES } from "../src/content/guides.js"
 import { canonicalFor, jsonLdFor, metaFor, ROUTES } from "../src/seo.js"
@@ -16,13 +17,19 @@ describe("route coverage", () => {
 
     expect(paths.has("/")).toBe(true)
     expect(paths.has("/components")).toBe(true)
+    expect(paths.has("/blocks")).toBe(true)
     for (const c of COMPONENTS) {
       expect(paths.has(`/components/${c.slug}`), `${c.name} has no SEO entry`).toBe(true)
+    }
+    for (const b of BLOCKS) {
+      expect(paths.has(`/blocks/${b.slug}`), `${b.name} has no SEO entry`).toBe(true)
     }
     for (const g of GUIDES) {
       expect(paths.has(`/docs/${g.slug}`), `${g.title} has no SEO entry`).toBe(true)
     }
-    expect(ROUTES).toHaveLength(2 + COMPONENTS.length + GUIDES.length)
+    // Two index pages, plus one per component, block and guide. A route added
+    // without metadata fails here rather than shipping without a title.
+    expect(ROUTES).toHaveLength(3 + COMPONENTS.length + BLOCKS.length + GUIDES.length)
   })
 })
 

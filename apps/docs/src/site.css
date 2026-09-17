@@ -623,3 +623,59 @@ footer { border-top: 1px solid var(--line); background: var(--bg-alt); }
   .bwa { padding: 18px 16px; }
   .bwa-actions .bwa-btn { flex: 1 1 auto; justify-content: center; }
 }
+
+/* ================= blocks ================= */
+
+.block-uses { display: flex; flex-wrap: wrap; gap: 5px; }
+.block-chip {
+  font-family: "Geist Mono", monospace; font-size: 9.5px;
+  letter-spacing: .06em; padding: 3px 7px;
+  border: 1px solid var(--line-2); border-radius: var(--r-pill);
+  background: var(--bg); color: var(--fg-7);
+}
+
+.block-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin-bottom: 16px;
+}
+
+.block-stage {
+  border: 1px solid var(--line-3); border-radius: var(--r-lg);
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    var(--panel);
+  background-size: 34px 34px, 34px 34px, auto;
+  padding: 40px 24px;
+  display: flex; justify-content: center;
+}
+
+.block-form {
+  width: 100%; max-width: 440px;
+  padding: 26px 24px;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: var(--background);
+  box-shadow: 0 24px 60px -40px rgba(0, 0, 0, .8);
+}
+.block-form .stack { display: flex; flex-direction: column; gap: 18px; }
+
+.block-submit {
+  height: 38px; padding: 0 18px; border: 0; border-radius: var(--r-md);
+  background: var(--ac-solid); color: var(--ac-solid-fg);
+  font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  transition: opacity .15s ease;
+}
+.block-submit:hover { opacity: .88; }
+
+.block-out {
+  display: block; margin-top: 4px; padding: 12px 14px;
+  border: 1px solid var(--ac-line); border-radius: var(--r-md);
+  background: var(--ac-dim);
+  font-family: "Geist Mono", monospace; font-size: 11.5px; line-height: 1.7;
+  color: var(--fg-3); white-space: pre-wrap; word-break: break-all;
+}
+
+@media (max-width: 860px) {
+  .block-stage { padding: 20px 12px; }
+  .block-form { padding: 18px 16px; }
+}

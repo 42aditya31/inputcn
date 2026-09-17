@@ -14,6 +14,7 @@
   "dependencies": {
     "@fontsource/geist-mono": "^5.3.0",
     "@fontsource/geist-sans": "^5.3.0",
+    "@hookform/resolvers": "^5.9.1",
     "@inputcn/card": "workspace:*",
     "@inputcn/color": "workspace:*",
     "@inputcn/core": "workspace:*",
@@ -27,7 +28,9 @@
     "@inputcn/percent": "workspace:*",
     "@inputcn/phone": "workspace:*",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.88.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

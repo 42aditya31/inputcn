@@ -1,7 +1,10 @@
+import { BLOCK_BY_SLUG } from "./content/blocks.js"
 import { BY_SLUG } from "./content/components.js"
 import { GUIDE_BY_SLUG, GUIDES } from "./content/guides.js"
 import { Footer } from "./layout/Footer.js"
 import { Nav } from "./layout/Nav.js"
+import { BlockPage } from "./pages/BlockPage.js"
+import { BlocksIndex } from "./pages/BlocksIndex.js"
 import { ComponentPageView } from "./pages/ComponentPage.js"
 import { ComponentsIndex } from "./pages/ComponentsIndex.js"
 import { GuidePageView } from "./pages/GuidePage.js"
@@ -17,6 +20,8 @@ const FIRST_GUIDE = GUIDES[0]!
  *
  *   /                      landing
  *   /components            the eleven, as cards
+ *   /blocks                complete forms
+ *   /blocks/:slug          one form: live, its source, and a prompt
  *   /components/:slug      one component: live demo, generated props, examples
  *   /docs                  redirects to the first guide
  *   /docs/:slug            one guide
@@ -24,6 +29,12 @@ const FIRST_GUIDE = GUIDES[0]!
 function route(path: string) {
   if (path === "/") return <Home />
   if (path === "/components") return <ComponentsIndex />
+  if (path === "/blocks") return <BlocksIndex />
+
+  if (path.startsWith("/blocks/")) {
+    const b = BLOCK_BY_SLUG.get(path.slice("/blocks/".length))
+    return b ? <BlockPage block={b} /> : <NotFound />
+  }
 
   if (path.startsWith("/components/")) {
     const c = BY_SLUG.get(path.slice("/components/".length))

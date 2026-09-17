@@ -9,6 +9,7 @@ const LINKS = [
   ["Home", "/"],
   ["Docs", "/docs"],
   ["Components", "/components"],
+  ["Blocks", "/blocks"],
   ["Form contract", "/docs/props-contract"],
   ["Validation", "/docs/two-modes"],
 ] as const
@@ -18,6 +19,7 @@ function isOn(href: string, path: string): boolean {
   if (href === "/") return path === "/"
   if (href === "/docs") return path.startsWith("/docs")
   if (href === "/components") return path.startsWith("/components")
+  if (href === "/blocks") return path.startsWith("/blocks")
   return path === href
 }
 

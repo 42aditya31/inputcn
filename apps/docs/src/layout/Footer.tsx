@@ -9,6 +9,7 @@ export function Footer() {
         <span className="meta">MIT · v1.0 · 2026</span>
         <Link to="/docs">Docs</Link>
         <Link to="/components">Components</Link>
+        <Link to="/blocks">Blocks</Link>
         <Link to="/docs/accessibility">Accessibility</Link>
         <a href={REPO_URL}>GitHub</a>
         <a href="/llms.txt">llms.txt</a>

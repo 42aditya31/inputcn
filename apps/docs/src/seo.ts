@@ -1,3 +1,4 @@
+import { BLOCKS } from "./content/blocks.js"
 import { COMPONENTS } from "./content/components.js"
 import { GUIDES } from "./content/guides.js"
 import { REPO_URL, SITE_URL } from "./site.js"
@@ -182,11 +183,41 @@ function describeGuide(slug: string, title: string): string {
   )
 }
 
+const BLOCKS_INDEX: Meta = {
+  path: "/blocks",
+  title: `Form blocks — complete React forms | ${NAME}`,
+  description:
+    "Six complete, working React forms built with inputcn: checkout, vendor onboarding, job schedule, rate card, firewall rule and brand settings. Live on the page, with the source and a ready-made prompt.",
+  keywords: ["react form examples", "shadcn form blocks", "react checkout form"],
+  kind: "collection",
+}
+
+/**
+ * Block pages chase a different search than component pages. Nobody searches
+ * for "react phone input" when what they want is a checkout form, and the
+ * whole-form queries are less contested than the component ones.
+ */
+function blockMeta(): Meta[] {
+  return BLOCKS.map((b) => ({
+    path: `/blocks/${b.slug}`,
+    title: `${b.name} form — React + ${b.wiring === "No form library" ? "no form library" : "Zod"} | ${NAME}`,
+    description: `${b.tagline} A complete, working React ${b.name.toLowerCase()} form using ${b.uses.length} inputcn components. Live demo, full source, and a one-click prompt for your coding agent.`,
+    keywords: [
+      `react ${b.name.toLowerCase()} form`,
+      `${b.name.toLowerCase()} form example`,
+      "react form template",
+    ],
+    kind: "component" as const,
+  }))
+}
+
 /** Every indexable route, in sitemap order. */
 export const ROUTES: Meta[] = [
   HOME,
   COMPONENTS_INDEX,
   ...componentMeta(),
+  BLOCKS_INDEX,
+  ...blockMeta(),
   ...guideMeta(),
 ]
 

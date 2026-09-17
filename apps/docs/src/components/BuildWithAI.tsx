@@ -99,13 +99,13 @@ export function BuildWithAI({ c }: { c: ComponentDoc }) {
           Open in Claude Code
         </a>
 
-        <a className="bwa-btn" href={vscodeLink(prompt)}>
+        {/* <a className="bwa-btn" href={vscodeLink(prompt)}>
           VS Code
         </a>
 
         <a className="bwa-btn" href={cursorLink(prompt)} target="_blank" rel="noreferrer noopener">
           Cursor
-        </a>
+        </a> */}
 
         <button className="bwa-btn" type="button" onClick={copy}>
           {copied ? "Copied" : "Copy prompt"}
