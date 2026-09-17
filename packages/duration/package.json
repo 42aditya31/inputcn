@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Duration input for React. Accepts 2h 30m, 90m or 1:30; emits seconds.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/duration"
+  },
+  "homepage": "https://input-cn.vercel.app/components/duration-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

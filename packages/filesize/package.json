@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "File size input for React. Understands MB vs MiB; emits bytes.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/filesize"
+  },
+  "homepage": "https://input-cn.vercel.app/components/filesize-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

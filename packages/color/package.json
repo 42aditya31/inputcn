@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Colour input for React with a swatch palette and WCAG contrast checking.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/color"
+  },
+  "homepage": "https://input-cn.vercel.app/components/color-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Template-masked text input for React with true caret preservation.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/masked"
+  },
+  "homepage": "https://input-cn.vercel.app/components/masked-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

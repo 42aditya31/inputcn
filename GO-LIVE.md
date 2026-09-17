@@ -3,14 +3,23 @@
 > Plain-English playbook for putting inputcn online so other people can use it.
 > Follow it top to bottom. Do not skip **Step 3** — nothing works without it.
 
-**Where you are now:** the code is on GitHub. Nothing is deployed, nothing is
-published, so nobody else can install anything yet.
+**Progress**
+
+| | Step | State |
+|---|---|---|
+| ✅ | Code on GitHub | <https://github.com/42aditya31/inputcn> |
+| ✅ | 1. Website deployed | <https://input-cn.vercel.app> |
+| ✅ | 2. URLs pointed at it | `site.config.json` |
+| ⬜ | **3. Publish to npm** | **You are here. Installs fail until this is done.** |
+| ⬜ | 4. Test from a fresh project | |
+| ⬜ | 5. Repo polish | |
+| ⬜ | 6. Screen readers, then announce | |
 
 **Where you are going:** someone types one command in their terminal and gets
 your component in their project.
 
 ```
-npx shadcn@latest add https://YOUR-SITE.vercel.app/r/phone-input.json
+npx shadcn@latest add https://input-cn.vercel.app/r/phone-input.json
 ```
 
 ---
@@ -36,9 +45,10 @@ their build fails immediately. **Deploying the website alone is not enough.**
 
 ---
 
-## Step 1 — Deploy the website to Vercel
+## Step 1 — Deploy the website to Vercel ✅ DONE
 
-**Time: 5 minutes. Cost: free.**
+> Live at <https://input-cn.vercel.app>. Kept here for when you redeploy or
+> move it. **Time: 5 minutes. Cost: free.**
 
 1. Go to **[vercel.com](https://vercel.com)** and sign in **with GitHub**.
    Use the **`42aditya31`** account, not the work one.
@@ -75,24 +85,27 @@ Open these three in your browser:
 
 | URL | You should see |
 |---|---|
-| `https://YOUR-SITE.vercel.app` | The homepage, with working inputs |
-| `https://YOUR-SITE.vercel.app/components/phone-input` | A docs page — **not** a 404 |
-| `https://YOUR-SITE.vercel.app/r/phone-input.json` | Raw JSON text |
+| `https://input-cn.vercel.app` | The homepage, with working inputs |
+| `https://input-cn.vercel.app/components/phone-input` | A docs page — **not** a 404 |
+| `https://input-cn.vercel.app/r/phone-input.json` | Raw JSON text |
 
 > **If the second one 404s**, the routing rewrite is not being applied. Check
 > that `vercel.json` is in the repo root and redeploy.
 
 ---
 
-## Step 2 — Point the project at your new URL
+## Step 2 — Point the project at your new URL ✅ DONE
 
-Right now the whole project still says `https://inputcn.dev`, which you do not
-own. Every install command on your site is wrong until you fix this.
+> Already run as `pnpm site-url https://input-cn.vercel.app`. Kept here because
+> you run the same command again the day you buy a domain.
+
+The project used to say `https://inputcn.dev`, which you do not own, so every
+install command on the site was wrong.
 
 **You do not have to hunt for them.** One command changes all of it:
 
 ```bash
-pnpm site-url https://inputcn.vercel.app
+pnpm site-url https://input-cn.vercel.app
 ```
 
 Use *your* real URL. It will print what it changed — around 10 places, plus it
@@ -118,6 +131,7 @@ You never need to edit these by hand, but so you know:
 | `README.md` | Static text, cannot read a config at runtime |
 | `public/llms.txt` | Same |
 | `public/r/*.json` | Rebuilt, because they contain full URLs inside |
+| `packages/core/src/warn.ts` | Dev-mode warnings link to the docs. It is a published package, so it cannot read the config at runtime |
 
 The website itself (hero, docs pages, install bars) reads `site.config.json`
 directly at build time, so it updates with no find-and-replace at all.
@@ -151,43 +165,68 @@ Check it worked:
 npm whoami
 ```
 
-### 3c. Publish
+### 3c. Use `pnpm publish`, never `npm publish`
+
+**This is the single most important line in this file.**
+
+The twelve component packages depend on core like this:
+
+```json
+"dependencies": { "@inputcn/core": "workspace:*" }
+```
+
+`workspace:*` is a **pnpm-only** instruction meaning "the copy in this repo".
+It is not valid on npm.
+
+- `pnpm publish` **rewrites it** to a real version (`^0.1.0`) as it packs.
+- `npm publish` **does not**. It uploads `"workspace:*"` literally, and every
+  single install fails with `No matching version found for @inputcn/core@workspace:*`.
+
+You would not find out until a stranger tried to install it.
+
+### 3d. Publish everything, in the right order
 
 From the repo root:
 
 ```bash
-# 1. Make sure everything is green first
+# 1. Everything green first. Publishing is not undoable.
 pnpm test
 pnpm typecheck
 pnpm build
 
-# 2. Publish core — this is the one that matters
-cd packages/core
-npm publish --access public
-cd ../..
+# 2. See exactly what would be uploaded, without uploading it
+pnpm -r --filter "./packages/*" publish --dry-run --no-git-checks
 ```
 
-`--access public` is **required**. Without it npm assumes a scoped package is
-private and rejects it on a free plan.
+Read that output. Check that `dist/` files are listed and that `src/` is not.
 
-### 3d. Publish the rest
-
-Each component package holds the Zod schema people import, so they need to be
-up too:
+Then, for real:
 
 ```bash
-for p in phone currency masked percent card duration color cron filesize ip mention testing; do
-  (cd packages/$p && npm publish --access public)
-done
+pnpm -r --filter "./packages/*" publish --no-git-checks
 ```
 
-On Windows PowerShell:
+`-r` walks every package **in dependency order**, so core goes up before the
+packages that need it. That ordering is why you do this from the root rather
+than one folder at a time.
 
-```powershell
-foreach ($p in "phone","currency","masked","percent","card","duration","color","cron","filesize","ip","mention","testing") {
-  Push-Location packages/$p; npm publish --access public; Pop-Location
-}
+`--access public` is no longer needed — every `package.json` now carries
+`"publishConfig": { "access": "public" }`.
+
+> `--no-git-checks` skips pnpm's "are you on a clean branch" guard. Drop it if
+> you would rather it check; just commit everything first.
+
+### 3e. Prove core is really up
+
+```bash
+npm view @inputcn/core version
+npm view @inputcn/phone dependencies
 ```
+
+The second one **must** show a real version like `^0.1.0`. If it says
+`workspace:*`, it was published with `npm` instead of `pnpm` — unpublish
+within 72 hours (`npm unpublish @inputcn/phone --force`), fix, and republish
+under a bumped version.
 
 ---
 
@@ -207,7 +246,7 @@ npx shadcn@latest init
 Now install your component:
 
 ```bash
-npx shadcn@latest add https://YOUR-SITE.vercel.app/r/phone-input.json
+npx shadcn@latest add https://input-cn.vercel.app/r/phone-input.json
 ```
 
 Then use it in a page, and run `npm run dev`.
@@ -278,12 +317,20 @@ it to `./` in Project Settings → General → Root Directory, then redeploy.
 `vercel.json` is missing or not in the repo root. It contains the rewrite rule
 that sends every unknown path to `index.html`.
 
-**`npm publish` says "402 Payment Required"**
-You forgot `--access public`.
+**"402 Payment Required" when publishing**
+The package is missing `"publishConfig": { "access": "public" }`, so npm is
+treating a scoped package as private. All thirteen already have it; if you add
+a new package, copy that field across.
 
-**`npm publish` says "403 Forbidden"**
+**"403 Forbidden" when publishing**
 Either you are not logged in (`npm whoami`), or the `inputcn` organisation does
 not exist yet (Step 3a).
+
+**A user reports `No matching version found for @inputcn/core@workspace:*`**
+Something was published with `npm publish` instead of `pnpm publish`. Only pnpm
+knows how to turn `workspace:*` into a real version number. Check with
+`npm view @inputcn/phone dependencies`; if it shows `workspace:*`, unpublish
+within 72 hours and republish with pnpm.
 
 **Git pushes with the wrong GitHub account**
 This repo is pinned to the personal account. Check with:
@@ -330,9 +377,9 @@ Then add the badge to the top of `README.md`:
 ## The whole thing, as a checklist
 
 ```
-[ ] 1. Import the repo on Vercel, deploy            (5 min)
-[ ] 2. pnpm site-url <your-url>, commit, push       (2 min)
-[ ] 3. npm org + npm login + publish core & the rest (20 min)
+[x] 1. Import the repo on Vercel, deploy            (5 min)
+[x] 2. pnpm site-url <your-url>, commit, push       (2 min)
+[ ] 3. npm org + npm login + pnpm -r publish            (20 min)
 [ ] 4. Install it into a fresh project and prove it works
 [ ] 5. Repo description, topics, website link, screenshot
 [ ] 6. Screen readers + contrast, THEN announce

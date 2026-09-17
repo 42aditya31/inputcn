@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Percentage input for React. Displays 12.5, emits 0.125.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/percent"
+  },
+  "homepage": "https://input-cn.vercel.app/components/percent-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

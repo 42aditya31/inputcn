@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "IPv4 and CIDR input for React with range constraints.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/ip"
+  },
+  "homepage": "https://input-cn.vercel.app/components/ip-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

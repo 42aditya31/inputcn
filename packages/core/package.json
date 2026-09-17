@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Shared engine for inputcn: caret-safe masking, validity rules, smart paste, dev warnings.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://input-cn.vercel.app",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

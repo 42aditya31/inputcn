@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Cron schedule input for React with a plain-English preview and a visual builder.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/cron"
+  },
+  "homepage": "https://input-cn.vercel.app/components/cron-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

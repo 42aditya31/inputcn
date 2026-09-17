@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Test helpers for inputcn components. Formatted inputs are hard to drive with userEvent; these do it correctly.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/testing"
+  },
+  "homepage": "https://input-cn.vercel.app",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

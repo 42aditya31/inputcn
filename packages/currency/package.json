@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Money input for React. Emits integer minor units so no float ever touches a price.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/currency"
+  },
+  "homepage": "https://input-cn.vercel.app/components/currency-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [

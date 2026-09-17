@@ -3,14 +3,40 @@
   "version": "0.1.0",
   "description": "Phone number input for React with country selector, live formatting and E.164 output.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/42aditya31/inputcn.git",
+    "directory": "packages/phone"
+  },
+  "homepage": "https://input-cn.vercel.app/components/phone-input",
+  "bugs": {
+    "url": "https://github.com/42aditya31/inputcn/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": false,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
-    "./phone": { "types": "./dist/phone.d.ts", "import": "./dist/phone.js" },
-    "./countries": { "types": "./dist/countries.d.ts", "import": "./dist/countries.js" },
-    "./schema": { "types": "./dist/schema.d.ts", "import": "./dist/schema.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./phone": {
+      "types": "./dist/phone.d.ts",
+      "import": "./dist/phone.js"
+    },
+    "./countries": {
+      "types": "./dist/countries.d.ts",
+      "import": "./dist/countries.js"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "import": "./dist/schema.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -26,7 +52,16 @@
     "zod": "^3.23.0 || ^4.0.0"
   },
   "peerDependenciesMeta": {
-    "zod": { "optional": true }
+    "zod": {
+      "optional": true
+    }
   },
-  "keywords": ["react", "phone", "e164", "input", "shadcn", "inputcn"]
+  "keywords": [
+    "react",
+    "phone",
+    "e164",
+    "input",
+    "shadcn",
+    "inputcn"
+  ]
 }
