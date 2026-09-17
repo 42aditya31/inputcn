@@ -546,3 +546,80 @@ footer { border-top: 1px solid var(--line); background: var(--bg-alt); }
 .drawer[data-open] { display: flex; flex-direction: column; gap: 2px; }
 .drawer a { padding: 9px 12px; border-radius: 9px; font-size: 14px; color: var(--fg-3); }
 .drawer a:hover { background: var(--raised); color: var(--fg); }
+
+/* ================= build with an agent ================= */
+
+.bwa {
+  position: relative;
+  margin: 0 0 34px;
+  padding: 22px 22px 20px;
+  border: 1px solid var(--ac-line);
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(90% 120% at 0% 0%, var(--ac-dim), transparent 60%),
+    linear-gradient(180deg, var(--card-a), var(--card-b));
+  overflow: hidden;
+}
+
+.bwa-head { display: flex; align-items: flex-start; gap: 14px; }
+.bwa-head > div:first-child { flex: 1; min-width: 0; }
+.bwa-head .eyebrow { margin-bottom: 8px; }
+.bwa-head h2 {
+  margin: 0; font-size: 1.22rem; font-weight: 600;
+  letter-spacing: -.02em; color: var(--fg); border: 0; padding: 0;
+}
+
+.bwa-count {
+  flex: none;
+  font-family: "Geist Mono", monospace; font-size: 10px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--fg-9);
+  padding: 4px 9px; border: 1px solid var(--line-2); border-radius: var(--r-pill);
+}
+
+.bwa-lede {
+  margin: 12px 0 18px; max-width: 62ch;
+  font-size: 14px; line-height: 1.6; color: var(--fg-6);
+}
+
+.bwa-controls { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px; }
+
+.bwa-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.bwa-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 38px; padding: 0 15px;
+  border: 1px solid var(--line-btn); border-radius: var(--r-md);
+  background: var(--sunken); color: var(--fg-3);
+  font: inherit; font-size: 13.5px; cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, opacity .15s ease;
+}
+.bwa-btn:hover { border-color: var(--line-4); color: var(--fg); }
+.bwa-btn svg { width: 15px; height: 15px; }
+
+.bwa-btn.primary {
+  background: var(--ac-solid); color: var(--ac-solid-fg);
+  border-color: transparent; font-weight: 600;
+}
+.bwa-btn.primary:hover { opacity: .88; color: var(--ac-solid-fg); }
+.bwa-btn.primary[aria-disabled="true"] { opacity: .4; cursor: not-allowed; }
+
+.bwa-btn.ghost { background: transparent; color: var(--fg-7); }
+
+.bwa-prompt {
+  margin: 16px 0 0; padding: 16px;
+  max-height: 340px; overflow: auto;
+  border: 1px solid var(--line-3); border-radius: 12px; background: var(--sunken);
+  font-family: "Geist Mono", monospace; font-size: 12px; line-height: 1.7;
+  color: var(--fg-4); white-space: pre-wrap; word-break: break-word;
+}
+
+.bwa-note {
+  margin: 14px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--fg-8);
+  max-width: 68ch;
+}
+.bwa-note strong { color: var(--fg-3); font-weight: 500; }
+
+@media (max-width: 860px) {
+  .bwa { padding: 18px 16px; }
+  .bwa-actions .bwa-btn { flex: 1 1 auto; justify-content: center; }
+}

@@ -1,3 +1,4 @@
+import { BuildWithAI } from "../components/BuildWithAI.js"
 import { actionExample, rhfExample, type ComponentDoc } from "../content/components.js"
 import GENERATED from "../content/props.generated.json"
 import { DocsLayout, type TocEntry } from "../layout/DocsLayout.js"
@@ -28,6 +29,7 @@ export function ComponentPageView({ c }: { c: ComponentDoc }) {
   const options = own.filter((p) => p.kind !== "constraint")
 
   const toc: TocEntry[] = [
+    { id: "bwa-h", label: "Build with an agent" },
     { id: "demo", label: "Live demo" },
     ...(constraints.length ? [{ id: "constraints", label: "Constraints" }] : []),
     { id: "props", label: "Props" },
@@ -54,6 +56,8 @@ export function ComponentPageView({ c }: { c: ComponentDoc }) {
       }
     >
       <InstallBar registry={c.slug} pkg={c.pkg} />
+
+      <BuildWithAI c={c} />
 
       <h2 className="doc-h2" id="demo">
         Live demo
