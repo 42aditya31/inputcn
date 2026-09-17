@@ -46,9 +46,23 @@ their build fails immediately. **Deploying the website alone is not enough.**
 3. Find **`inputcn`** in the list and click **Import**.
    - If you do not see it: click **Adjust GitHub App Permissions** and give
      Vercel access to the repo.
-4. Vercel will show a settings screen. **Change nothing.** The repo already
-   has a `vercel.json` that tells it everything — what to build, where the
-   output goes, and how to handle the page routes.
+4. **Fix two things on the settings screen.** Vercel guesses, and it guesses
+   wrong here, because this repo has two apps in it:
+
+   | Field | Vercel suggests | Change it to |
+   |---|---|---|
+   | **Root Directory** | `apps/demo` | **`./`** — the repo root. Click **Edit**, then pick the top-level folder. |
+   | **Project Name** | `inputcn-demo` | **`inputcn`** — this decides your URL. |
+   | **Application Preset** | Vite | **Other** — but if you set Root Directory correctly, `vercel.json` overrides this anyway. |
+
+   > **Why root and not `apps/docs`?** It is a pnpm workspace. The docs app
+   > imports the component packages from `packages/`, which only exist if the
+   > install runs from the root. `vercel.json` then points Vercel at
+   > `apps/docs/dist` for the output.
+   >
+   > **`apps/demo` is the internal dev harness, not the docs site.** Deploying
+   > it would publish the scratch page instead of your documentation.
+
 5. Click **Deploy**.
 6. Wait about two minutes.
 
@@ -249,6 +263,16 @@ Project Settings → General → Node.js Version → 20. Vercel picks pnpm up fr
 **Vercel build fails: "frozen-lockfile"**
 The lockfile is out of date with `package.json`. Run `pnpm install` locally,
 commit `pnpm-lock.yaml`, push.
+
+**Vercel says: "Invalid request: `headers[0]` should NOT have additional
+property `comment`"**
+Something in `vercel.json` has a key Vercel does not recognise. JSON has no
+comment syntax, so you cannot annotate entries inside `headers` or `rewrites`.
+Only `source`, `destination`, `headers`, `has` and `missing` are allowed.
+
+**Vercel deployed the wrong thing / the site looks like a scratch page**
+Root Directory was left as `apps/demo`. That is the internal dev harness. Set
+it to `./` in Project Settings → General → Root Directory, then redeploy.
 
 **Refreshing a docs page gives a 404**
 `vercel.json` is missing or not in the repo root. It contains the rewrite rule

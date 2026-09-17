@@ -1,35 +1,28 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm --filter @inputcn/docs build",
   "outputDirectory": "apps/docs/dist",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "framework": null,
   "rewrites": [
     {
-      "comment": "The docs site is a single-page app with 27 client-side routes. Without this, opening /components/phone-input directly — or refreshing it — is a 404, because no such file exists on disk. Vercel checks the filesystem first, so /r/*.json and /llms.txt are still served as real files and are NOT swallowed by this catch-all.",
-      "source": "/((?!api/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
     {
-      "comment": "The registry is fetched by `npx shadcn add` from the user's terminal, which is a different origin. Without CORS the install fails.",
       "source": "/r/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     },
     {
       "source": "/llms.txt",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
-      ]
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     },
     {
-      "comment": "Hashed filenames, so these can be cached forever.",
       "source": "/assets/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     }
