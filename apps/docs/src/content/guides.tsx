@@ -503,6 +503,42 @@ const schema = z.object({
       },
       {
         kind: "prose",
+        id: "twice",
+        heading: "Formatting options go in both places",
+        body: [
+          <>
+            A schema validates a <em>value</em>, so it never sees the props you gave the
+            component. That is usually invisible — until a message has to format a bound.{" "}
+            <code>moneySchema</code> defaults to <code>USD</code>, so a GBP field whose cap is
+            enforced by the resolver reports{" "}
+            <strong>&ldquo;Must be $1,000.00 or less&rdquo;</strong> unless you tell the
+            schema too.
+          </>,
+          <>
+            Pass <code>currency</code> and <code>locale</code> to both. The same applies to{" "}
+            <code>DurationInput</code>&rsquo;s units and <code>FileSizeInput</code>&rsquo;s{" "}
+            <code>binary</code> flag: anything that only affects how a number is{" "}
+            <em>printed</em> has to be given to whichever side is printing it.
+          </>,
+        ],
+      },
+      {
+        kind: "code",
+        id: "twice-code",
+        heading: "The same options on both sides",
+        code: `const schema = z.object({
+  budget: moneySchema({
+    positive: true,
+    max: 1_000_000,
+    currency: "GBP",   // message formatting only — defaults to USD
+    locale: "en-GB",
+  }),
+})
+
+<CurrencyInput label="Budget" currency="GBP" locale="en-GB" {...field} />`,
+      },
+      {
+        kind: "prose",
         id: "parity",
         heading: "The schema and the field agree",
         body: [
