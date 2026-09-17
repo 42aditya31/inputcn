@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/ip",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "IPv4 and CIDR input for React with range constraints.",
   "license": "MIT",
   "repository": {

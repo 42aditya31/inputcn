@@ -24,6 +24,24 @@ npx shadcn@latest add https://input-cn.vercel.app/r/phone-input.json
 
 ---
 
+> [!WARNING]
+> **You are on Windows PowerShell 5.1, which has no `&&`.** Commands in this
+> file are written for one-per-line. If you paste a chained `a && b`, you get
+> `The token '&&' is not a valid statement separator`. Either run them on
+> separate lines, or use `;` to run them regardless of failure:
+>
+> ```powershell
+> pnpm test; pnpm typecheck; pnpm build
+> ```
+>
+> To stop on the first failure the way `&&` does:
+>
+> ```powershell
+> pnpm test; if ($?) { pnpm typecheck }; if ($?) { pnpm build }
+> ```
+>
+> Git Bash is also installed if you would rather use `&&` directly.
+
 ## The picture, in one minute
 
 Three separate things have to be online. They are **not** the same thing, and
@@ -227,6 +245,50 @@ The second one **must** show a real version like `^0.1.0`. If it says
 `workspace:*`, it was published with `npm` instead of `pnpm` — unpublish
 within 72 hours (`npm unpublish @inputcn/phone --force`), fix, and republish
 under a bumped version.
+
+---
+
+### 3f. Releasing a new version, later
+
+A published version can never be changed or reused. Even a README fix needs a
+new version number, because npm only re-renders a package page on publish.
+
+One line per command — PowerShell has no `&&`:
+
+```powershell
+# 1. Bump all thirteen together. Keeping them in lockstep means one version
+#    number describes the whole library, which is far easier to support.
+pnpm -r --filter "./packages/*" exec npm version patch --no-git-tag-version
+
+# 2. Refresh the lockfile with the new versions
+pnpm install
+
+# 3. Green before you ship
+pnpm test
+pnpm typecheck
+pnpm build
+
+# 4. Publish
+pnpm -r --filter "./packages/*" publish --no-git-checks
+
+# 5. Commit the bump so the repo matches what is on npm
+git add -A
+git commit -m "release: v0.1.1"
+git push
+```
+
+Use `patch` for fixes, `minor` for new props or components, `major` for
+anything that breaks an existing usage — once the API is frozen at 1.0.
+
+> [!TIP]
+> Check the packed manifest before a release you care about. `workspace:*` must
+> come out as a real version:
+> ```powershell
+> cd packages/phone
+> pnpm pack --pack-destination .
+> tar -xzf inputcn-phone-0.1.1.tgz package/package.json
+> Get-Content package/package.json | Select-String dependencies -Context 0,3
+> ```
 
 ---
 

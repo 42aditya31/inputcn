@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/masked",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Template-masked text input for React with true caret preservation.",
   "license": "MIT",
   "repository": {

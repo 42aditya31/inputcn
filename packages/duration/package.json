@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/duration",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Duration input for React. Accepts 2h 30m, 90m or 1:30; emits seconds.",
   "license": "MIT",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/color",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Colour input for React with a swatch palette and WCAG contrast checking.",
   "license": "MIT",
   "repository": {

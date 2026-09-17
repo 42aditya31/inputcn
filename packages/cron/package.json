@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/cron",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cron schedule input for React with a plain-English preview and a visual builder.",
   "license": "MIT",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/mention",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mention input for React with an @-triggered picker.",
   "license": "MIT",
   "repository": {

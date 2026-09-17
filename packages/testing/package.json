@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/testing",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Test helpers for inputcn components. Formatted inputs are hard to drive with userEvent; these do it correctly.",
   "license": "MIT",
   "repository": {

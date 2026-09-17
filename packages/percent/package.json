@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/percent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Percentage input for React. Displays 12.5, emits 0.125.",
   "license": "MIT",
   "repository": {

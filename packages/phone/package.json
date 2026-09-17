@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/phone",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Phone number input for React with country selector, live formatting and E.164 output.",
   "license": "MIT",
   "repository": {

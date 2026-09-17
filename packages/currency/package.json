@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/currency",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Money input for React. Emits integer minor units so no float ever touches a price.",
   "license": "MIT",
   "repository": {

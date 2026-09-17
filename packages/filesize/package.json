@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/filesize",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "File size input for React. Understands MB vs MiB; emits bytes.",
   "license": "MIT",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared engine for inputcn: caret-safe masking, validity rules, smart paste, dev warnings.",
   "license": "MIT",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@inputcn/card",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Credit card input for React with brand detection and Luhn validation.",
   "license": "MIT",
   "repository": {
