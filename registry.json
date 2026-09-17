@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "inputcn",
-  "homepage": "https://inputcn.dev",
+  "homepage": "https://input-cn.vercel.app",
   "items": [
     {
       "name": "inputcn-base",

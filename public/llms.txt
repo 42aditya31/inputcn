@@ -19,7 +19,7 @@ render their own.
 A component (copies source into the project, `@inputcn/core` comes from npm):
 
 ```
-npx shadcn@latest add https://inputcn.dev/r/phone-input.json
+npx shadcn@latest add https://input-cn.vercel.app/r/phone-input.json
 ```
 
 Or as a plain dependency:
@@ -30,11 +30,11 @@ npm i @inputcn/phone
 
 ## Components
 
-- [phone-input](https://inputcn.dev/r/phone-input.json): Country selector with search, live per-country formatting, E.164 output, `countries` and `mobileOnly` constraints. Emits `string`.
-- [currency-input](https://inputcn.dev/r/currency-input.json): Integer minor units so no float touches a price. Locale-correct, zero-decimal currencies handled, layouts `inline` / `display` / `stepper`. Emits `number`.
-- [masked-input](https://inputcn.dev/r/masked-input.json): Template masking with true caret preservation. Tokens `#` digit, `A` letter, `*` alphanumeric. Emits the raw unmasked `string`.
-- [inputcn-base](https://inputcn.dev/r/inputcn-base.json): The stylesheet. Required once by every component.
-- [registry index](https://inputcn.dev/r/index.json): Machine-readable list of every item.
+- [phone-input](https://input-cn.vercel.app/r/phone-input.json): Country selector with search, live per-country formatting, E.164 output, `countries` and `mobileOnly` constraints. Emits `string`.
+- [currency-input](https://input-cn.vercel.app/r/currency-input.json): Integer minor units so no float touches a price. Locale-correct, zero-decimal currencies handled, layouts `inline` / `display` / `stepper`. Emits `number`.
+- [masked-input](https://input-cn.vercel.app/r/masked-input.json): Template masking with true caret preservation. Tokens `#` digit, `A` letter, `*` alphanumeric. Emits the raw unmasked `string`.
+- [inputcn-base](https://input-cn.vercel.app/r/inputcn-base.json): The stylesheet. Required once by every component.
+- [registry index](https://input-cn.vercel.app/r/index.json): Machine-readable list of every item.
 
 ## Props every component accepts
 
@@ -80,8 +80,8 @@ bridging. If glue is required, that is a bug.
 
 ## Optional
 
-- [Theming](https://inputcn.dev/docs/theming): every colour and radius reads a shadcn CSS variable; nothing is hardcoded.
-- [Accessibility](https://inputcn.dev/docs/accessibility): keyboard map and screen-reader notes.
+- [Theming](https://input-cn.vercel.app/docs/theming): every colour and radius reads a shadcn CSS variable; nothing is hardcoded.
+- [Accessibility](https://input-cn.vercel.app/docs/accessibility): keyboard map and screen-reader notes.
 - [GitHub](https://github.com/inputcn/inputcn): source, issues, changelog.
 
 ## Not included, deliberately

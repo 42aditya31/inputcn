@@ -19,8 +19,18 @@ import { fileURLToPath } from "node:url"
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const CONFIG = join(ROOT, "site.config.json")
 
-/** Static files whose URLs are read by humans, not by a build step. */
-const REWRITE = ["README.md", join("public", "llms.txt")]
+/**
+ * Files carrying a literal URL that no build step can substitute.
+ *
+ * README.md and llms.txt are read before anything is built. warn.ts is a
+ * published npm package, so it cannot import the repo's site.config.json at
+ * runtime — the URL has to be baked into its source.
+ */
+const REWRITE = [
+  "README.md",
+  join("public", "llms.txt"),
+  join("packages", "core", "src", "warn.ts"),
+]
 
 const next = process.argv[2]
 

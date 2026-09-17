@@ -1,91 +1,91 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "inputcn",
-  "homepage": "https://inputcn.dev",
+  "homepage": "https://input-cn.vercel.app",
   "items": [
     {
       "name": "inputcn-base",
       "type": "registry:file",
       "title": "inputcn base styles",
       "description": "Token-driven stylesheet for every inputcn component. Reads your shadcn CSS variables; hardcodes no colour or radius. Import once.",
-      "url": "https://inputcn.dev/r/inputcn-base.json"
+      "url": "https://input-cn.vercel.app/r/inputcn-base.json"
     },
     {
       "name": "phone-input",
       "type": "registry:ui",
       "title": "Phone Input",
       "description": "Phone number field with a searchable country selector, live per-country formatting and E.164 output. Smart paste detects the country and offers an undo.",
-      "url": "https://inputcn.dev/r/phone-input.json"
+      "url": "https://input-cn.vercel.app/r/phone-input.json"
     },
     {
       "name": "currency-input",
       "type": "registry:ui",
       "title": "Currency Input",
       "description": "Money field emitting integer minor units, so no float ever touches a price. Locale-correct formatting, zero-decimal currencies, three layouts.",
-      "url": "https://inputcn.dev/r/currency-input.json"
+      "url": "https://input-cn.vercel.app/r/currency-input.json"
     },
     {
       "name": "masked-input",
       "type": "registry:ui",
       "title": "Masked Input",
       "description": "Template-masked text field with true caret preservation. Emits the raw value, never the formatted string. Twelve presets included.",
-      "url": "https://inputcn.dev/r/masked-input.json"
+      "url": "https://input-cn.vercel.app/r/masked-input.json"
     },
     {
       "name": "percent-input",
       "type": "registry:ui",
       "title": "Percent Input",
       "description": "Percentage field that displays 12.5 and emits 0.125. The off-by-100 bug, solved once.",
-      "url": "https://inputcn.dev/r/percent-input.json"
+      "url": "https://input-cn.vercel.app/r/percent-input.json"
     },
     {
       "name": "card-input",
       "type": "registry:ui",
       "title": "Credit Card Input",
       "description": "Card number, expiry and CVC with live brand detection, Luhn validation, brand-aware grouping and focus advancement.",
-      "url": "https://inputcn.dev/r/card-input.json"
+      "url": "https://input-cn.vercel.app/r/card-input.json"
     },
     {
       "name": "duration-input",
       "type": "registry:ui",
       "title": "Duration Input",
       "description": "Duration field accepting 2h 30m, 90m or 1:30 and emitting seconds. Text, segmented and preset layouts.",
-      "url": "https://inputcn.dev/r/duration-input.json"
+      "url": "https://input-cn.vercel.app/r/duration-input.json"
     },
     {
       "name": "color-input",
       "type": "registry:ui",
       "title": "Colour Input",
       "description": "Colour field with a swatch palette, format conversion and live WCAG contrast checking against a reference colour.",
-      "url": "https://inputcn.dev/r/color-input.json"
+      "url": "https://input-cn.vercel.app/r/color-input.json"
     },
     {
       "name": "cron-input",
       "type": "registry:ui",
       "title": "Cron Input",
       "description": "Cron schedule field with a plain-English preview, upcoming run times, a visual builder and a minInterval guard.",
-      "url": "https://inputcn.dev/r/cron-input.json"
+      "url": "https://input-cn.vercel.app/r/cron-input.json"
     },
     {
       "name": "filesize-input",
       "type": "registry:ui",
       "title": "File Size Input",
       "description": "File size field that keeps MB and MiB distinct and emits bytes.",
-      "url": "https://inputcn.dev/r/filesize-input.json"
+      "url": "https://input-cn.vercel.app/r/filesize-input.json"
     },
     {
       "name": "ip-input",
       "type": "registry:ui",
       "title": "IP / CIDR Input",
       "description": "IPv4 and CIDR field with range computation, address classification and prefix bounds.",
-      "url": "https://inputcn.dev/r/ip-input.json"
+      "url": "https://input-cn.vercel.app/r/ip-input.json"
     },
     {
       "name": "mention-input",
       "type": "registry:ui",
       "title": "Mention Input",
       "description": "Comment field with an @-triggered picker. Emits text plus the ids actually mentioned, recomputed on every edit.",
-      "url": "https://inputcn.dev/r/mention-input.json"
+      "url": "https://input-cn.vercel.app/r/mention-input.json"
     }
   ]
 }

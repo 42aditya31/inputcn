@@ -333,10 +333,11 @@ Recorded rather than hidden.
 |---|---|---|
 | ~~Components render unstyled~~ | ✅ Fixed in Phase 2. | — |
 | ~~`@inputcn/masked` has no Zod schema~~ | ✅ Fixed in Phase 2. | — |
-| **Registry is built but not hosted** | The docs site now *serves* `/r/*.json` from the canonical `public/`, so the registry works locally. The URLs in the README and `llms.txt` still assume `inputcn.dev`, and will 404 until the site is deployed there. | Deploy, Phase 5 |
+| ~~Registry is built but not hosted~~ | Fixed. Deployed to <https://input-cn.vercel.app>; `/r/*.json` is served with CORS and the whole project points at it via `site.config.json` (`pnpm site-url <url>`). | — |
+| **Nothing published to npm** | `npx shadcn add` copies a component whose first line is `import { useField } from "@inputcn/core"`. Until that package is on npm, every install compiles to a missing module. | Next |
+| **Not a git repository** | Fixed. <https://github.com/42aditya31/inputcn> | — |
 | **Country data is hand-maintained** | 18 countries with hand-written masks and mobile prefixes. Accurate for those, but not authoritative like libphonenumber. | Optional adapter, Phase 3 |
 | **No a11y verification yet** | ARIA is wired and keyboard nav works, but nothing has been tested with a real screen reader. | Phase 4 |
-| **Not a git repository** | No version control on this code yet. | Before Phase 2 |
 
 ---
 

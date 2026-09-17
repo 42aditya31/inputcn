@@ -9,7 +9,9 @@
  */
 
 const DEV = process.env.NODE_ENV !== "production"
-const DOCS = "https://inputcn.dev/docs"
+// Rewritten by `pnpm site-url <url>`. This is a published package, so it
+// cannot read the repo's site.config.json at runtime — the URL is baked in.
+const DOCS = "https://input-cn.vercel.app/docs"
 
 /** Per-instance seen set, so a warning never repeats on re-render. */
 export type WarnScope = Set<string>

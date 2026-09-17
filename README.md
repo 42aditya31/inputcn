@@ -8,7 +8,7 @@ every product needs and every product rebuilds badly.
      without it wastes the launch. -->
 
 ```bash
-npx shadcn@latest add https://inputcn.dev/r/phone-input.json
+npx shadcn@latest add https://input-cn.vercel.app/r/phone-input.json
 ```
 
 ```tsx
@@ -63,7 +63,7 @@ four surface variants, three sizes, and a Zod schema companion.
 from npm. Edit the border, drop a control, rename the props.
 
 ```bash
-npx shadcn@latest add https://inputcn.dev/r/phone-input.json
+npx shadcn@latest add https://input-cn.vercel.app/r/phone-input.json
 ```
 
 **As a dependency** — if you'd rather get fixes via `npm update`.
