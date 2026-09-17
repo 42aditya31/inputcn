@@ -8,6 +8,8 @@ import config from "../../../site.config.json"
  * missed. Change it with `pnpm site-url <url>` from the repo root.
  */
 export const SITE_URL: string = config.siteUrl
+export const REPO_URL: string = config.repoUrl
+export const TWITTER: string = config.twitter
 
 /** The shadcn command that installs one registry item. */
 export function installCmd(registryItem: string): string {

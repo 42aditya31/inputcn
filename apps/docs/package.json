@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/extract-props.mjs && vite build",
+    "build": "node scripts/extract-props.mjs && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "node scripts/extract-props.mjs --check && tsc --noEmit -p tsconfig.json",
-    "props": "node scripts/extract-props.mjs"
+    "props": "node scripts/extract-props.mjs",
+    "build:client": "vite build"
   },
   "dependencies": {
     "@fontsource/geist-mono": "^5.3.0",

@@ -11,6 +11,17 @@ import { useSyncExternalStore, type AnchorHTMLAttributes, type MouseEvent } from
 
 const listeners = new Set<() => void>()
 
+/**
+ * The path being prerendered. Only ever set by the build-time renderer, which
+ * runs one route at a time in a single-threaded process, so a module-level
+ * value is safe here in a way it would not be in a long-lived server.
+ */
+let serverPath = "/"
+
+export function setServerPath(path: string): void {
+  serverPath = path
+}
+
 function emit() {
   for (const l of listeners) l()
 }
@@ -43,7 +54,7 @@ export function usePath(): string {
   return useSyncExternalStore(
     subscribe,
     () => normalise(location.pathname),
-    () => "/",
+    () => serverPath,
   )
 }
 

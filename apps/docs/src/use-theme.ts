@@ -11,9 +11,12 @@ const KEY = "inputcn-theme"
  * handler, which is where the change actually happens.
  */
 export function useTheme(): [Theme, (next: Theme) => void] {
-  const [theme, set] = useState<Theme>(
-    () => (document.documentElement.dataset["theme"] as Theme | undefined) ?? "dark",
-  )
+  const [theme, set] = useState<Theme>(() => {
+    // No document while prerendering. Dark is the CSS default, so the
+    // prerendered markup and the stylesheet agree.
+    if (typeof document === "undefined") return "dark"
+    return (document.documentElement.dataset["theme"] as Theme | undefined) ?? "dark"
+  })
 
   function apply(next: Theme) {
     document.documentElement.dataset["theme"] = next

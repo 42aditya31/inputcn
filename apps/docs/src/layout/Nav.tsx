@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 import { Link, usePath } from "../router.js"
+import { REPO_URL } from "../site.js"
 import { Github, Menu, Moon, Sun } from "../ui.js"
 import { useTheme } from "../use-theme.js"
 
@@ -59,7 +60,7 @@ export function Nav() {
 
             <a
               className="nav-btn"
-              href="https://github.com/inputcn/inputcn"
+              href={REPO_URL}
               target="_blank"
               rel="noreferrer noopener"
             >

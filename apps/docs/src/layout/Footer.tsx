@@ -1,4 +1,5 @@
 import { Link } from "../router.js"
+import { REPO_URL } from "../site.js"
 
 export function Footer() {
   return (
@@ -9,6 +10,7 @@ export function Footer() {
         <Link to="/docs">Docs</Link>
         <Link to="/components">Components</Link>
         <Link to="/docs/accessibility">Accessibility</Link>
+        <a href={REPO_URL}>GitHub</a>
         <a href="/llms.txt">llms.txt</a>
         <span className="sp" />
         <span className="fine">Not affiliated with or endorsed by shadcn.</span>

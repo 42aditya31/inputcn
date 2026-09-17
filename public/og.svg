@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="inputcn — the inputs shadcn/ui doesn't ship">
+  <defs>
+    <linearGradient id="ink" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#85858f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="-8%" r="62%">
+      <stop offset="0%" stop-color="#cdf25c" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#cdf25c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#cdf25c" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#cdf25c" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#cdf25c" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M34 0H0V34" fill="none" stroke="#ffffff" stroke-opacity="0.028" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#08080a"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="264" y="0" width="672" height="1.5" fill="url(#beam)"/>
+
+  <text x="80" y="118"
+        font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+        font-size="19" letter-spacing="4.2" fill="#5d5d67">SHEET 01 / 01 · REV 1.0 · 11 SPECIMENS</text>
+
+  <text x="76" y="300"
+        font-family="Geist, Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="168" font-weight="600" letter-spacing="-8" fill="url(#ink)">input<tspan fill="#cdf25c">/</tspan>cn</text>
+
+  <text x="80" y="372"
+        font-family="Geist, Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="35" fill="#9c9ca6">The inputs shadcn/ui doesn&#8217;t ship.</text>
+
+  <text x="80" y="426"
+        font-family="Geist, Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="25" fill="#6b6b75">Phone · Currency · Card · Duration · Cron · Colour · File size · IP · Percent · Mask · Mentions</text>
+
+  <g transform="translate(80, 486)">
+    <rect x="0" y="0" width="520" height="62" rx="12" fill="#0d0d11" stroke="#23232a"/>
+    <text x="22" y="39"
+          font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+          font-size="21" fill="#d4d4d8"><tspan fill="#6b6b75">$</tspan> npx shadcn add phone-input</text>
+  </g>
+
+  <g transform="translate(628, 486)">
+    <rect x="0" y="0" width="128" height="62" rx="12" fill="#cdf25c"/>
+    <text x="64" y="39" text-anchor="middle"
+          font-family="Geist, Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+          font-size="21" font-weight="600" fill="#14190a">MIT</text>
+  </g>
+
+  <text x="1120" y="552" text-anchor="end"
+        font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+        font-size="19" letter-spacing="2.4" fill="#5d5d67">498 TESTS · 11 COMPONENTS · 0 DEPS</text>
+</svg>

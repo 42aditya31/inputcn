@@ -1,5 +1,5 @@
 import { Link } from "../router.js"
-import { installCmd, SITE_URL } from "../site.js"
+import { installCmd, REPO_URL, SITE_URL } from "../site.js"
 import type { GuidePage } from "./types.js"
 
 /**
@@ -70,15 +70,15 @@ export const GUIDES: GuidePage[] = [
         cols: ["AREA", "STATE", "EVIDENCE"],
         rows: [
           ["Components", "11 shipped", "Every one live on its own page"],
-          ["Tests", "488 passing", "27 files, run on every commit"],
+          ["Tests", "498 passing", "27 files, run on every commit"],
           ["Accessibility", "Automated only", "50 axe-core checks; screen readers not yet run"],
           ["Registry", "12 items", "Built from source by a script, so it cannot drift"],
+          ["Published", "npm + Vercel", "Live at @inputcn on npm, docs and registry on Vercel"],
           ["@inputcn/server", "Not built", "Planned — the same validators, server-side"],
-          ["npm", "Not published", "The install URLs below will 404 until it is"],
         ],
       },
     ],
-    note: "Version 1.0 is not released yet. The API is stable in practice but is not frozen, and nothing is on npm.",
+    note: "Version 1.0 is not released yet — the API is stable in practice but not yet frozen, so treat a minor bump as potentially breaking until it is.",
   },
 
   {
@@ -144,7 +144,7 @@ import "@inputcn/core/styles.css"`,
         ],
       },
     ],
-    note: `Those URLs resolve only once ${SITE_URL} is deployed. Locally, this docs site serves the same registry files at /r/.`,
+    note: `The registry is served from ${SITE_URL}/r/, and every package is on npm under the @inputcn scope.`,
   },
 
   {

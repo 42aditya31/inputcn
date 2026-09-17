@@ -8,6 +8,7 @@ import { GuidePageView } from "./pages/GuidePage.js"
 import { Home } from "./pages/Home.js"
 import { NotFound } from "./pages/NotFound.js"
 import { usePath } from "./router.js"
+import { useHead } from "./use-head.js"
 
 const FIRST_GUIDE = GUIDES[0]!
 
@@ -41,6 +42,7 @@ function route(path: string) {
 
 export default function App() {
   const path = usePath()
+  useHead(path)
 
   return (
     <>
